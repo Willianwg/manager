@@ -10,25 +10,43 @@ describe("Bussiness rules", () => {
             password: "jumanji",
         }, "manager_id");
 
+        expect(manager.sellers).toHaveLength(0);
+    })
+    it("Shoult be able to create a Manager and add a seller", ()=>{
+        const manager = new Manager({
+            name: "Willian Guedes",
+            email: "willian@test.com",
+            password: "jumanji",
+        }, "manager_id");
+
         const seller = new Seller({
             name: "Seller Name",
             email: "password",
             password: "12345",
         }, "seller_id")
 
-        const product = new Product({
-            name: "Product Name",
-            price: 200,
-        }, "product_id")
-
         manager.addSeller(seller);
-
-        manager.addProduct(product);
 
         expect(manager.sellers).toHaveLength(1);
         expect(manager.sellers[0].name).toEqual("Seller Name");
-        expect(manager.products).toHaveLength(1);
-        expect(manager.products[0].id).toEqual("product_id");
+    })
+
+    it("Shoult be able to create a Manager and add a product", ()=>{
+
+        const manager = new Manager({
+            name: "Willian Guedes",
+            email: "willian@test.com",
+            password: "jumanji",
+        }, "manager_id");
        
+        const product = new Product({
+            name: "Ford car",
+            price: 60000,
+        }, "product-id")
+
+        manager.addProduct(product);
+
+        expect(manager.products).toHaveLength(1);
+        expect(manager.products[0].id).toEqual("product-id");
     })
 })
