@@ -1,16 +1,25 @@
 import { Replace } from "../helpers/Replace";
+import { Product } from "./product";
+
+type SellerInfo = {
+    name: string;
+    id: string;
+}
 
 type SaleInfo = {
-    product: string;
-    seller: string;
+    product: Product;
+    seller: SellerInfo;
     value: number;
     createdAt: Date;
 }
 
 export class Sale {
+    private _id: string;
     private readonly props: SaleInfo;
 
-    constructor(saleInfo: Replace<SaleInfo, { createdAt?: Date }>) {
+    constructor(saleInfo: Replace<SaleInfo, { createdAt?: Date }>, id: string) {
+        this._id = id;
+
         this.props = {
             product: saleInfo.product,
             seller: saleInfo.seller,
@@ -26,7 +35,11 @@ export class Sale {
         return this.props.product;
     }
 
-    get soldBy() {
+    get soldBy() : SellerInfo {
         return this.props.seller;
+    }
+
+    get id(){
+        return this._id;
     }
 }

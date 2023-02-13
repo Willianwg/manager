@@ -23,6 +23,9 @@ export class Product {
         };
     }
     
+    get price(){
+        return this.props.price;
+    }
     get id(){
         return this._id;
     }
