@@ -119,4 +119,7 @@ it("Should add a sale for a seller", () => {
     expect(manager.sales).toHaveLength(1);
     expect(manager.sellers[0].sales).toHaveLength(1);
     expect(manager.sales[0].id).toEqual(manager.sellers[0].sales[0].id)
+    expect(manager.sales[0].soldBy).toEqual(manager.sellers[0].sales[0].soldBy)
+    expect(manager.sales[0].soldProduct).toEqual(manager.sellers[0].sales[0].soldProduct)
+    expect(manager.sales[0].price).toEqual(manager.sellers[0].sales[0].price)
 })
