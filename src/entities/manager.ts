@@ -40,7 +40,7 @@ export class Manager {
         this.props.products.push(product);
     }
 
-    addSale(productId: string, sellerId: string){
+    addSale(productId: string, sellerId: string, id: string): Sale {
         const productIndex = this.products.findIndex(product => product.id === productId);
         const sellerIndex = this.sellers.findIndex(seller => seller.id === sellerId);
 
@@ -54,10 +54,12 @@ export class Manager {
             },
             product,
             value: product.price,
-        }, "sale-id")
+        }, id)
 
         this.props.sales.push(sale);
         this.props.sellers[sellerIndex].addSale(sale);
+
+        return sale;
         
     }
 

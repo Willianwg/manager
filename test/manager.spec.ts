@@ -9,8 +9,6 @@ import { makeSeller } from "./factories/makeSeller";
 
 describe("Bussiness rules", () => {
     it("Should be able to create a Manager", () => {
-        const idGenerator = new IdGenerator();
-
         const manager = makeManager();
 
         expect(manager.shortId).toEqual(manager.id.slice(0,8));
@@ -71,6 +69,8 @@ it("Shoult be able to create a Manager and add a seller and remove", ()=>{
 })
 
 it("Should add a sale for a seller", () => {
+    const idGenerator = new IdGenerator();
+
     const manager = makeManager();
 
     const seller = makeSeller();
@@ -80,7 +80,9 @@ it("Should add a sale for a seller", () => {
     manager.addProduct(product);
     manager.addSeller(seller);
 
-    manager.addSale(product.id, seller.id);
+    const saleId = idGenerator.generate();
+
+    manager.addSale(product.id, seller.id, saleId);
 
     expect(manager.sellers).toHaveLength(1);
     expect(manager.products).toHaveLength(1);

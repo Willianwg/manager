@@ -24,7 +24,6 @@ describe("Add Seller", () => {
 
         expect(managerRepository.managers).toHaveLength(1);
         expect(managerRepository.managers[0]).toEqual(manager);
-        expect(managerRepository.managers).toHaveLength(1);
         expect(managerRepository.managers[0].sellers[0]).toEqual(seller);
     })
 
