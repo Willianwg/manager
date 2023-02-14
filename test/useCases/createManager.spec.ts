@@ -1,4 +1,3 @@
-import { Manager } from "../../src/entities/manager";
 import { CreateManager } from "../../src/useCases/createManager";
 import { IdGenerator } from "../../src/utils/idGenerator";
 import { InMemoryManagerRepository } from "../inMemoryDB/manager";

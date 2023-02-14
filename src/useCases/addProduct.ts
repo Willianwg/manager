@@ -1,37 +1,35 @@
-import { Seller } from "../entities/seller";
+import { Product } from "../entities/product";
 import { ManagerNotFound } from "../errors/managerNotFount";
 import { ManagerRepository } from "../repositories/manager";
 import { IdGeneratorInterface } from "../utils/idGenerator";
 
-type AddSellerRequest = {
+type AddProductRequest = {
     name: string;
-    email: string;
-    password: string;
+    price: number;
     managerId: string;
 }
 
-export class AddSeller {
+export class AddProduct {
     constructor(private managerRepository: ManagerRepository, private idGenerator: IdGeneratorInterface){}
 
-    async execute(request:AddSellerRequest){
+    async execute(request:AddProductRequest){
         const manager = await this.managerRepository.findById(request.managerId);
         if(!manager){
             throw new ManagerNotFound();
         }
 
         const id = this.idGenerator.generate();
-        const seller = new Seller({
+        const product = new Product({
             name: request.name,
-            email: request.email,
-            password: request.password,
+            price: request.price,
         }, id);
 
-        manager.addSeller(seller);
+        manager.addProduct(product);
 
         await this.managerRepository.update(manager);
 
         return {
-            seller,
+            product,
         }
     }
 }

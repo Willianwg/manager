@@ -1,5 +1,4 @@
 import { IdGenerator } from "../src/utils/idGenerator";
-import { Manager } from "../src/entities/manager";
 import { Product } from "../src/entities/product";
 import { Seller } from "../src/entities/seller";
 import { makeManager } from "./factories/makeManager";
