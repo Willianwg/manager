@@ -3,7 +3,7 @@ import { Product } from "./product";
 import { Sale } from "./sale";
 import { Seller } from "./seller";
 
-type ManagerProps = {
+export type ManagerProps = {
     name: string;
     email: string;
     password: string;

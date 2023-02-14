@@ -2,30 +2,22 @@ import { IdGenerator } from "../src/utils/idGenerator";
 import { Manager } from "../src/entities/manager";
 import { Product } from "../src/entities/product";
 import { Seller } from "../src/entities/seller";
+import { makeManager } from "./factories/makeManager";
 
 // https://mystore.com/:manager-short-id/:productname/:seller_id
 
 describe("Bussiness rules", () => {
     it("Should be able to create a Manager", () => {
         const idGenerator = new IdGenerator();
-        const id = idGenerator.generate();
 
-        const manager = new Manager({
-            name: "Willian Guedes",
-            email: "willian@test.com",
-            password: "jumanji",
-        }, id);
+        const manager = makeManager();
 
         expect(manager.shortId).toEqual(manager.id.slice(0,8));
         expect(manager.sellers).toHaveLength(0);
         expect(manager.sales).toHaveLength(0);
     })
     it("Shoult be able to create a Manager and add a seller", ()=>{
-        const manager = new Manager({
-            name: "Willian Guedes",
-            email: "willian@test.com",
-            password: "jumanji",
-        }, "manager_id");
+        const manager = makeManager();
 
         const seller = new Seller({
             name: "Seller Name",
@@ -41,11 +33,7 @@ describe("Bussiness rules", () => {
     })
 
     it("Shoult be able to create a Manager and add a seller and remove", ()=>{
-        const manager = new Manager({
-            name: "Willian Guedes",
-            email: "willian@test.com",
-            password: "jumanji",
-        }, "manager_id");
+        const manager = makeManager();
 
         const seller = new Seller({
             name: "Seller Name",
@@ -62,11 +50,7 @@ describe("Bussiness rules", () => {
 
     it("Shoult be able to create a Manager and add a product", ()=>{
 
-        const manager = new Manager({
-            name: "Willian Guedes",
-            email: "willian@test.com",
-            password: "jumanji",
-        }, "manager_id");
+        const manager = makeManager();
        
         const product = new Product({
             name: "Ford car",
@@ -81,11 +65,7 @@ describe("Bussiness rules", () => {
 })
 
 it("Shoult be able to create a Manager and add a seller and remove", ()=>{
-    const manager = new Manager({
-        name: "Willian Guedes",
-        email: "willian@test.com",
-        password: "jumanji",
-    }, "manager_id");
+    const manager = makeManager();
 
     const product = new Product({
         name: "Ford car",
@@ -100,11 +80,7 @@ it("Shoult be able to create a Manager and add a seller and remove", ()=>{
 })
 
 it("Should add a sale for a seller", () => {
-    const manager = new Manager({
-        name: "Willian Guedes",
-        email: "willian@test.com",
-        password: "jumanji",
-    }, "manager_id");
+    const manager = makeManager();
 
     const seller = new Seller({
         email: "eemail@gmail.com",

@@ -9,4 +9,10 @@ export class InMemoryManagerRepository implements ManagerRepository {
         this.managers.push(manager);
     }
 
+    async findById(id: string): Promise<Manager | null> {
+        const manager = this.managers.find(item => item.id === id);
+
+        return manager? manager: null;
+    }
+
 }
