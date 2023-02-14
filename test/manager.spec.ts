@@ -1,15 +1,21 @@
 import { Manager } from "../src/entities/manager";
 import { Product } from "../src/entities/product";
 import { Seller } from "../src/entities/seller";
+import { randomUUID } from "node:crypto";
+
+// https://mystore.com/:manager-short-id/:productname/:seller_id
 
 describe("Bussiness rules", () => {
     it("Should be able to create a Manager", () => {
+        const id = randomUUID();
+
         const manager = new Manager({
             name: "Willian Guedes",
             email: "willian@test.com",
             password: "jumanji",
-        }, "manager_id");
+        }, id);
 
+        expect(manager.shortId).toEqual(manager.id.slice(0,8));
         expect(manager.sellers).toHaveLength(0);
         expect(manager.sales).toHaveLength(0);
     })
@@ -29,6 +35,7 @@ describe("Bussiness rules", () => {
         manager.addSeller(seller);
 
         expect(manager.sellers).toHaveLength(1);
+        expect(manager.sellers[0].shortId).toEqual(seller.id.slice(0,8));
         expect(manager.sellers[0].name).toEqual("Seller Name");
     })
 

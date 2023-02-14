@@ -28,6 +28,10 @@ export class Manager {
         };
     }
 
+    get shortId(){
+        return this._id.slice(0,8);
+    }
+
     addSeller(seller: Seller){
         this.props.sellers.push(seller);
     }

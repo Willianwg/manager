@@ -22,6 +22,10 @@ export class Seller {
         };
     }
 
+    get shortId(){
+        return this._id.slice(0,8);
+    }
+
     addSale(sale: Sale){
         this.props.sales.push(sale);
     }
