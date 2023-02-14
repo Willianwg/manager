@@ -5,7 +5,7 @@ type BasicInfo = {
     id: string;
 }
 
-type ProductProps = {
+export type ProductProps = {
     name: string;
     price: number;
 }

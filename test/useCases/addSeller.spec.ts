@@ -28,7 +28,7 @@ describe("Add Seller", () => {
         expect(managerRepository.managers[0].sellers[0]).toEqual(seller);
     })
 
-    it("Should not be able to add a Seller to non existing manager", async () => {
+    it("Should not be able to add a Seller using wrong manager id", async () => {
         const idGenerator = new IdGenerator();
         const managerRepository = new InMemoryManagerRepository();
         const addSeller = new AddSeller(managerRepository, idGenerator);

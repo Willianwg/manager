@@ -20,7 +20,7 @@ describe("Get Manager", () => {
         expect(manager).toEqual(newManager);
     })
 
-    it("Should not be able to find a Manager", async () => {
+    it("Should not be able to find a Manager using wrong manager id", async () => {
         const managerRepository = new InMemoryManagerRepository();
         const getManager = new GetManager(managerRepository);
 

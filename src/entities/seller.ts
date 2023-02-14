@@ -1,7 +1,7 @@
 import { Replace } from "../helpers/Replace";
 import { Sale } from "./sale";
 
-type SellerProps = {
+export type SellerProps = {
     name: string;
     email: string;
     password?: string;

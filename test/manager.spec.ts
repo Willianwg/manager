@@ -2,6 +2,8 @@ import { IdGenerator } from "../src/utils/idGenerator";
 import { Product } from "../src/entities/product";
 import { Seller } from "../src/entities/seller";
 import { makeManager } from "./factories/makeManager";
+import { makeProduct } from "./factories/makeProduct";
+import { makeSeller } from "./factories/makeSeller";
 
 // https://mystore.com/:manager-short-id/:productname/:seller_id
 
@@ -34,11 +36,7 @@ describe("Bussiness rules", () => {
     it("Shoult be able to create a Manager and add a seller and remove", ()=>{
         const manager = makeManager();
 
-        const seller = new Seller({
-            name: "Seller Name",
-            email: "password",
-            password: "12345",
-        }, "seller_id")
+        const seller = makeSeller();
 
         manager.addSeller(seller);
 
@@ -51,10 +49,7 @@ describe("Bussiness rules", () => {
 
         const manager = makeManager();
        
-        const product = new Product({
-            name: "Ford car",
-            price: 60000,
-        }, "product-id")
+        const product = makeProduct({}, "product-id")
 
         manager.addProduct(product);
 
@@ -66,10 +61,7 @@ describe("Bussiness rules", () => {
 it("Shoult be able to create a Manager and add a seller and remove", ()=>{
     const manager = makeManager();
 
-    const product = new Product({
-        name: "Ford car",
-        price: 60000,
-    }, "product-id");
+    const product = makeProduct();
 
     manager.addProduct(product);
 
@@ -81,16 +73,9 @@ it("Shoult be able to create a Manager and add a seller and remove", ()=>{
 it("Should add a sale for a seller", () => {
     const manager = makeManager();
 
-    const seller = new Seller({
-        email: "eemail@gmail.com",
-        name: "ajsdkfjasd",
-        password: "jasidfkojasd",
-    }, "seller-id")
+    const seller = makeSeller();
 
-    const product = new Product({
-        name: "Ford car",
-        price: 60000,
-    }, "product-id");
+    const product = makeProduct();
     
     manager.addProduct(product);
     manager.addSeller(seller);
