@@ -8,7 +8,7 @@ import { InMemoryManagerRepository } from "../inMemoryDB/manager";
 
 
 describe("Remove Product", () => {
-    it("Should be able to Remove a Product to manager", async () => {
+    it("Should be able to Remove a Product from manager", async () => {
         const idGenerator = new IdGenerator();
         const managerRepository = new InMemoryManagerRepository();
         const removeProduct = new RemoveProduct(managerRepository, idGenerator);
@@ -48,6 +48,26 @@ describe("Remove Product", () => {
             productId: product.id,
             managerId: "wrong-id",
         })).rejects.toThrow(ManagerNotFound);
+
+    })
+
+    it("Should not be able to Remove a Product using wrong product id", async () => {
+        const idGenerator = new IdGenerator();
+        const managerRepository = new InMemoryManagerRepository();
+        const removeProduct = new RemoveProduct(managerRepository, idGenerator);
+
+        const manager = makeManager();
+
+        const product = makeProduct();
+
+        manager.addProduct(product);
+
+        managerRepository.create(manager);
+
+        expect(removeProduct.execute({
+            productId: "wrong-id",
+            managerId: manager.id,
+        })).rejects.toThrow(ProductNotFound);
 
     })
 })

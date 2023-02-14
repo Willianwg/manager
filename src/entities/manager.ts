@@ -71,6 +71,18 @@ export class Manager {
         this.props.products = updatedProducts;
     }
 
+    getSeller(sellerId: string){
+        const seller = this.sellers.find(item => item.id === sellerId);
+
+        return seller ? seller: null;
+    }
+
+    getProduct(productId: string){
+        const product = this.products.find(item => item.id === productId);
+
+        return product ? product: null;
+    }
+
     get sellers(){
         return this.props.sellers;
     }
