@@ -1,13 +1,14 @@
+import { IdGenerator } from "../src/utils/idGenerator";
 import { Manager } from "../src/entities/manager";
 import { Product } from "../src/entities/product";
 import { Seller } from "../src/entities/seller";
-import { randomUUID } from "node:crypto";
 
 // https://mystore.com/:manager-short-id/:productname/:seller_id
 
 describe("Bussiness rules", () => {
     it("Should be able to create a Manager", () => {
-        const id = randomUUID();
+        const idGenerator = new IdGenerator();
+        const id = idGenerator.generate();
 
         const manager = new Manager({
             name: "Willian Guedes",
