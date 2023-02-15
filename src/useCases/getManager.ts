@@ -1,16 +1,19 @@
 import { Manager } from "../entities/manager";
 import { ManagerNotFound } from "../errors/managerNotFount";
 import { ManagerRepository } from "../repositories/manager";
-import { IdGenerator, IdGeneratorInterface } from "../utils/idGenerator";
 
 type GetManagerRequest = {
    id: string;
 }
 
+type GetManagerResponse = {
+    manager: Manager;
+}
+
 export class GetManager {
     constructor(private managerRepository: ManagerRepository){}
 
-    async execute(request:GetManagerRequest){
+    async execute(request:GetManagerRequest): Promise<GetManagerResponse>{
         const manager = await this.managerRepository.findById(request.id);
 
         if(!manager){
