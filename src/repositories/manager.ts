@@ -5,5 +5,5 @@ export interface ManagerRepository {
     create(manager: Manager): Promise<void>;
     findById(id: string): Promise<Manager | null>;
     update(manager: Manager): Promise<void>;
-    findSeller(sellerId: string): Promise<Seller | null>
+    findSeller(managerId: string, sellerId: string): Promise<Seller | null>
 }

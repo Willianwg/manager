@@ -20,16 +20,15 @@ export class InMemoryManagerRepository implements ManagerRepository {
         this.managers[managerIndex] = manager;
     }
 
-    async findSeller(sellerId: string): Promise<Seller | null> {
+    async findSeller(managerId: string, sellerId: string): Promise<Seller | null> {
 
-        const manager = this.managers.find(manager => manager.sellers.find(item=> item.id === sellerId ))
+        const manager = this.managers.find(manager => manager.id === managerId);
 
         if(!manager) return null;
 
         const seller = manager.sellers.find(item=> item.id === sellerId);
 
-
-        return seller? seller : null;
+        return seller ? seller : null;
     }
 
 }

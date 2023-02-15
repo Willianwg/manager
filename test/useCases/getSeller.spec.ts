@@ -4,7 +4,7 @@ import { makeManager } from "../factories/makeManager";
 import { makeSeller } from "../factories/makeSeller";
 import { InMemoryManagerRepository } from "../inMemoryDB/manager";
 
-// https://mystore.com/:manager-short-id/:productname/:seller_id
+// https://mystore.com/:manager_short_id/
 
 describe("Get Seller", () => {
     it("Should be able to find a Seller", async () => {
@@ -18,6 +18,7 @@ describe("Get Seller", () => {
         managerRepository.create(manager);
 
         const { seller } = await getSeller.execute({
+            managerId: manager.id,
             sellerId: newSeller.id,
         });
 
@@ -36,6 +37,7 @@ describe("Get Seller", () => {
 
         expect( 
             getSeller.execute({
+                managerId: manager.id,
                 sellerId: "somewrongid",
             })
         ).rejects.toThrow(SellerNotFound);
