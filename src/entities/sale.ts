@@ -1,15 +1,11 @@
 import { Replace } from "../helpers/Replace";
 import { Product } from "./product";
 
-type SellerInfo = {
-    name: string;
-    id: string;
-}
-
 type SaleInfo = {
     product: Product;
-    seller: SellerInfo;
     value: number;
+    sellerId: string;
+    managerId: string;
     createdAt: Date;
 }
 
@@ -22,7 +18,8 @@ export class Sale {
 
         this.props = {
             product: saleInfo.product,
-            seller: saleInfo.seller,
+            sellerId: saleInfo.sellerId,
+            managerId: saleInfo.managerId,
             value: saleInfo.value,
             createdAt: saleInfo.createdAt ?? new Date(),
         }
@@ -35,11 +32,15 @@ export class Sale {
         return this.props.product;
     }
 
-    get soldBy() : SellerInfo {
-        return this.props.seller;
+    get soldBy() {
+        return this.props.sellerId;
     }
 
     get id(){
         return this._id;
+    }
+
+    get managerId(){
+        return this.props.managerId;
     }
 }

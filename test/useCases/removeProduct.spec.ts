@@ -1,48 +1,44 @@
 import { ManagerNotFound } from "../../src/errors/managerNotFount";
 import { ProductNotFound } from "../../src/errors/productNotFound";
 import { RemoveProduct } from "../../src/useCases/removeProduct";
-import { IdGenerator } from "../../src/utils/idGenerator";
 import { makeManager } from "../factories/makeManager";
 import { makeProduct } from "../factories/makeProduct";
 import { InMemoryManagerRepository } from "../inMemoryDB/manager";
+import { InMemoryProductRepository } from "../inMemoryDB/product";
 
 
 describe("Remove Product", () => {
     it("Should be able to Remove a Product from manager", async () => {
-        const idGenerator = new IdGenerator();
         const managerRepository = new InMemoryManagerRepository();
-        const removeProduct = new RemoveProduct(managerRepository, idGenerator);
+        const productRepository = new InMemoryProductRepository();
+        const removeProduct = new RemoveProduct(managerRepository, productRepository);
 
         const manager = makeManager();
+        managerRepository.create(manager);
 
         const product = makeProduct();
-
-        manager.addProduct(product);
-
-        managerRepository.create(manager);
+        productRepository.create(product);
+        
 
         await removeProduct.execute({
             productId: product.id,
             managerId: manager.id,
         })
 
-        expect(managerRepository.managers).toHaveLength(1);
-        expect(managerRepository.managers[0]).toEqual(manager);
-        expect(managerRepository.managers[0].products[0]).toBeFalsy();
+        expect(productRepository.products).toHaveLength(0);
+        expect(productRepository.products[0]).toBeFalsy();
     })
 
     it("Should not be able to Remove a Product using wrong manager id", async () => {
-        const idGenerator = new IdGenerator();
         const managerRepository = new InMemoryManagerRepository();
-        const removeProduct = new RemoveProduct(managerRepository, idGenerator);
+        const productRepository = new InMemoryProductRepository();
+        const removeProduct = new RemoveProduct(managerRepository, productRepository);
 
         const manager = makeManager();
+        managerRepository.create(manager);
 
         const product = makeProduct();
-
-        manager.addProduct(product);
-
-        managerRepository.create(manager);
+        productRepository.create(product);
 
         expect(removeProduct.execute({
             productId: product.id,
@@ -52,17 +48,15 @@ describe("Remove Product", () => {
     })
 
     it("Should not be able to Remove a Product using wrong product id", async () => {
-        const idGenerator = new IdGenerator();
         const managerRepository = new InMemoryManagerRepository();
-        const removeProduct = new RemoveProduct(managerRepository, idGenerator);
+        const productRepository = new InMemoryProductRepository();
+        const removeProduct = new RemoveProduct(managerRepository, productRepository);
 
         const manager = makeManager();
+        managerRepository.create(manager);
 
         const product = makeProduct();
-
-        manager.addProduct(product);
-
-        managerRepository.create(manager);
+        productRepository.create(product);
 
         expect(removeProduct.execute({
             productId: "wrong-id",

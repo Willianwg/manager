@@ -7,13 +7,15 @@ import { makeManager } from "../factories/makeManager";
 import { makeProduct } from "../factories/makeProduct";
 import { makeSeller } from "../factories/makeSeller";
 import { InMemoryManagerRepository } from "../inMemoryDB/manager";
+import { InMemorySaleRepository } from "../inMemoryDB/sale";
 
 
-describe("Add Seller", () => {
-    it("Should be able to add a Sale to manager and Seller", async () => {
+describe("Add Sale", () => {
+    it("Should be able to add a Sale", async () => {
         const idGenerator = new IdGenerator();
         const managerRepository = new InMemoryManagerRepository();
-        const addSeller = new AddSale(managerRepository, idGenerator);
+        const saleRepository = new InMemorySaleRepository();
+        const addSale = new AddSale(managerRepository, saleRepository, idGenerator);
 
         const manager = makeManager();
         const sellerOne = makeSeller();
@@ -26,34 +28,30 @@ describe("Add Seller", () => {
 
         managerRepository.create(manager);
 
-        const saleOne  = await addSeller.execute({
+        const saleOne  = await addSale.execute({
             managerId: manager.id,
             sellerId: sellerOne.id,
             productId: product.id,
         })
 
-        const saleTwo  = await addSeller.execute({
+        const saleTwo  = await addSale.execute({
             managerId: manager.id,
             sellerId: sellerTwo.id,
             productId: product.id,
         })
 
-        expect(managerRepository.managers).toHaveLength(1);
-        expect(managerRepository.managers[0]).toEqual(manager);
-        expect(managerRepository.managers[0].products[0]).toEqual(product);
-        expect(managerRepository.managers[0].sellers[0]).toEqual(sellerOne);
-        expect(managerRepository.managers[0].sellers[0].sales[0]).toEqual(saleOne.sale);
-        expect(managerRepository.managers[0].sellers[1]).toEqual(sellerTwo);
-        expect(managerRepository.managers[0].sellers[1].sales[0]).toEqual(saleTwo.sale);
-        expect(managerRepository.managers[0].sellers[0].sales[0]).toEqual(managerRepository.managers[0].sales[0]);
-        expect(managerRepository.managers[0].sellers[1].sales[0]).toEqual(managerRepository.managers[0].sales[1]);
+       expect(saleOne.sale.soldBy).toEqual(sellerOne.id);
+       expect(saleTwo.sale.soldBy).toEqual(sellerTwo.id);
+       expect(saleOne.sale.managerId).toEqual(manager.id);
+       expect(saleTwo.sale.managerId).toEqual(manager.id);
 
     })
 
     it("Should not be able to add a Seller using wrong manager id", async () => {
         const idGenerator = new IdGenerator();
         const managerRepository = new InMemoryManagerRepository();
-        const addSale = new AddSale(managerRepository, idGenerator);
+        const saleRepository = new InMemorySaleRepository();
+        const addSale = new AddSale(managerRepository, saleRepository,idGenerator);
 
         const manager = makeManager();
         const seller = makeSeller();
@@ -75,7 +73,8 @@ describe("Add Seller", () => {
     it("Should not be able to add a Seller using wrong seller id", async () => {
         const idGenerator = new IdGenerator();
         const managerRepository = new InMemoryManagerRepository();
-        const addSale = new AddSale(managerRepository, idGenerator);
+        const saleRepository = new InMemorySaleRepository();
+        const addSale = new AddSale(managerRepository, saleRepository,idGenerator);
 
         const manager = makeManager();
         const seller = makeSeller();
@@ -97,7 +96,8 @@ describe("Add Seller", () => {
     it("Should not be able to add a Seller using wrong product id", async () => {
         const idGenerator = new IdGenerator();
         const managerRepository = new InMemoryManagerRepository();
-        const addSale = new AddSale(managerRepository, idGenerator);
+        const saleRepository = new InMemorySaleRepository();
+        const addSale = new AddSale(managerRepository, saleRepository,idGenerator);
 
         const manager = makeManager();
         const seller = makeSeller();

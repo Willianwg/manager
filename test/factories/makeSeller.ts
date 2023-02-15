@@ -12,6 +12,7 @@ export function makeSeller(override: Override = {}, id?: string){
         name: "Seller Name",
         email: "seller@email.com",
         password: "randompass",
+        managerId: "managerid_",
         ...override
     }, _id)
 }

@@ -6,6 +6,7 @@ export type SellerProps = {
     email: string;
     password?: string;
     sales: Sale[];
+    managerId: string;
 }
 
 export class Seller {
@@ -18,6 +19,7 @@ export class Seller {
             name: seller.name,
             email: seller.email,
             password: seller.password,
+            managerId: seller.managerId,
             sales: seller.sales ?? [],
         };
     }
@@ -47,5 +49,9 @@ export class Seller {
 
     get password(){
         return this.props.password;
+    }
+
+    get managerId(){
+        return this.props.managerId;
     }
 }

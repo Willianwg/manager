@@ -3,6 +3,8 @@ import { ManagerNotFound } from "../errors/managerNotFount";
 import { ProductNotFound } from "../errors/productNotFound";
 import { SellerNotFound } from "../errors/sellerNotFound";
 import { ManagerRepository } from "../repositories/manager";
+import { SaleRepository } from "../repositories/sale";
+import { SellerRepository } from "../repositories/seller";
 import { IdGeneratorInterface } from "../utils/idGenerator";
 
 type AddSaleRequest = {
@@ -12,7 +14,7 @@ type AddSaleRequest = {
 }
 
 export class AddSale {
-    constructor(private managerRepository: ManagerRepository, private idGenerator: IdGeneratorInterface){}
+    constructor(private managerRepository: ManagerRepository, private saleRepository: SaleRepository,private idGenerator: IdGeneratorInterface){}
 
     async execute(request:AddSaleRequest){
         const { productId, managerId, sellerId } = request;
@@ -35,11 +37,15 @@ export class AddSale {
         }
 
         const saleId = this.idGenerator.generate();
-
-        const sale = manager.addSale(productId, sellerId, saleId);
         
+        const sale = new Sale({
+            managerId,
+            sellerId,
+            product,
+            value: product.price
+        }, saleId);
 
-        await this.managerRepository.update(manager);
+        await this.saleRepository.create(sale);
 
         return {
             sale,

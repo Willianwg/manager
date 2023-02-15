@@ -1,9 +1,8 @@
 import { Seller } from "../entities/seller";
 import { SellerNotFound } from "../errors/sellerNotFound";
-import { ManagerRepository } from "../repositories/manager";
+import { SellerRepository } from "../repositories/seller";
 
 type GetSellerRequest = {
-    managerId: string;
     sellerId: string;
 }
 
@@ -12,11 +11,11 @@ type GetSellerResponse = {
 }
 
 export class GetSeller {
-    constructor(private managerRepository: ManagerRepository){}
+    constructor(private sellerRepository: SellerRepository){}
 
     async execute(request:GetSellerRequest): Promise<GetSellerResponse> {
-        const { managerId, sellerId } = request;
-        const seller = await this.managerRepository.findSeller(managerId, sellerId);
+        const { sellerId } = request;
+        const seller = await this.sellerRepository.findById(sellerId);
 
         if(!seller){
             throw new SellerNotFound();

@@ -1,6 +1,7 @@
 import { Product } from "../entities/product";
 import { ManagerNotFound } from "../errors/managerNotFount";
 import { ManagerRepository } from "../repositories/manager";
+import { ProductRepository } from "../repositories/product";
 import { IdGeneratorInterface } from "../utils/idGenerator";
 
 type AddProductRequest = {
@@ -10,7 +11,7 @@ type AddProductRequest = {
 }
 
 export class AddProduct {
-    constructor(private managerRepository: ManagerRepository, private idGenerator: IdGeneratorInterface){}
+    constructor(private managerRepository: ManagerRepository, private productRepository: ProductRepository, private idGenerator: IdGeneratorInterface){}
 
     async execute(request:AddProductRequest){
         const manager = await this.managerRepository.findById(request.managerId);
@@ -22,11 +23,10 @@ export class AddProduct {
         const product = new Product({
             name: request.name,
             price: request.price,
+            managerId: request.managerId,
         }, id);
 
-        manager.addProduct(product);
-
-        await this.managerRepository.update(manager);
+        await this.productRepository.create(product);
 
         return {
             product,

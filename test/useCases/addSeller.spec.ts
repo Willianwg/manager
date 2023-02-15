@@ -3,13 +3,15 @@ import { AddSeller } from "../../src/useCases/addSeller";
 import { IdGenerator } from "../../src/utils/idGenerator";
 import { makeManager } from "../factories/makeManager";
 import { InMemoryManagerRepository } from "../inMemoryDB/manager";
+import { InMemorySellerRepository } from "../inMemoryDB/seller";
 
 
 describe("Add Seller", () => {
     it("Should be able to add a Seller to manager", async () => {
         const idGenerator = new IdGenerator();
         const managerRepository = new InMemoryManagerRepository();
-        const addSeller = new AddSeller(managerRepository, idGenerator);
+        const sellerRepository = new InMemorySellerRepository();
+        const addSeller = new AddSeller(managerRepository, sellerRepository, idGenerator);
 
         const manager = makeManager();
 
@@ -22,15 +24,14 @@ describe("Add Seller", () => {
             managerId: manager.id,
         })
 
-        expect(managerRepository.managers).toHaveLength(1);
-        expect(managerRepository.managers[0]).toEqual(manager);
-        expect(managerRepository.managers[0].sellers[0]).toEqual(seller);
+        expect(seller.managerId).toEqual(manager.id);
     })
 
     it("Should not be able to add a Seller using wrong manager id", async () => {
         const idGenerator = new IdGenerator();
         const managerRepository = new InMemoryManagerRepository();
-        const addSeller = new AddSeller(managerRepository, idGenerator);
+        const sellerRepository = new InMemorySellerRepository();
+        const addSeller = new AddSeller(managerRepository, sellerRepository, idGenerator);
 
         const manager = makeManager();
 

@@ -11,6 +11,7 @@ export function makeProduct(override: Override = {}, id?: string){
     return new Product({
         name: "Product Name",
         price: 199,
+        managerId: "managerid_",
         ...override
     }, _id)
 }

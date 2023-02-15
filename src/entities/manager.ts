@@ -48,10 +48,8 @@ export class Manager {
         const product = this.products[productIndex];
 
         const sale = new Sale({
-            seller: {
-                name: seller.name,
-                id: seller.id
-            },
+            sellerId: seller.id,
+            managerId: this._id,
             product,
             value: product.price,
         }, id)

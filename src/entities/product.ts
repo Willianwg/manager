@@ -1,25 +1,24 @@
 import { Replace } from "../helpers/Replace";
 
-type BasicInfo = {
-    name: string;
-    id: string;
-}
-
 export type ProductProps = {
     name: string;
     price: number;
+    managerId: string;
+    createdAt: Date;
 }
 
 export class Product {
     private _id: string;
     private props: ProductProps;
 
-    constructor(Product: Replace<ProductProps, { createdAt?: Date }>, id: string) {
+    constructor(product: Replace<ProductProps, { createdAt?: Date }>, id: string) {
         this._id = id;
 
         this.props = {
-            name: Product.name,
-            price: Product.price,
+            name: product.name,
+            price: product.price,
+            managerId: product.managerId,
+            createdAt: product.createdAt ?? new Date(),
         };
     }
     
@@ -28,5 +27,9 @@ export class Product {
     }
     get id(){
         return this._id;
+    }
+
+    get managerId(){
+        return this.props.managerId;
     }
 }

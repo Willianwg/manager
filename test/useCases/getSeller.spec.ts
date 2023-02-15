@@ -3,22 +3,20 @@ import { GetSeller } from "../../src/useCases/getSeller";
 import { makeManager } from "../factories/makeManager";
 import { makeSeller } from "../factories/makeSeller";
 import { InMemoryManagerRepository } from "../inMemoryDB/manager";
+import { InMemorySellerRepository } from "../inMemoryDB/seller";
 
 // https://mystore.com/:manager_short_id/
 
 describe("Get Seller", () => {
     it("Should be able to find a Seller", async () => {
-        const managerRepository = new InMemoryManagerRepository();
-        const getSeller = new GetSeller(managerRepository);
+        const sellerRepository = new InMemorySellerRepository();
+        const getSeller = new GetSeller(sellerRepository);
 
         const newSeller = makeSeller();
-        const manager = makeManager();
-        manager.addSeller(newSeller);
 
-        managerRepository.create(manager);
+        sellerRepository.create(newSeller);
 
         const { seller } = await getSeller.execute({
-            managerId: manager.id,
             sellerId: newSeller.id,
         });
 
@@ -26,18 +24,17 @@ describe("Get Seller", () => {
     })
 
     it("Should not be able to find a Seller using wrong id", async () => {
-        const managerRepository = new InMemoryManagerRepository();
-        const getSeller = new GetSeller(managerRepository);
+        const sellerRepository = new InMemorySellerRepository();
+        const getSeller = new GetSeller(sellerRepository);
 
         const newSeller = makeSeller();
         const manager = makeManager();
         manager.addSeller(newSeller);
 
-        managerRepository.create(manager);
+        sellerRepository.create(newSeller);
 
         expect( 
             getSeller.execute({
-                managerId: manager.id,
                 sellerId: "somewrongid",
             })
         ).rejects.toThrow(SellerNotFound);

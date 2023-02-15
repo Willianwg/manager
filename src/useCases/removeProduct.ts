@@ -1,7 +1,7 @@
 import { ManagerNotFound } from "../errors/managerNotFount";
 import { ProductNotFound } from "../errors/productNotFound";
 import { ManagerRepository } from "../repositories/manager";
-import { IdGeneratorInterface } from "../utils/idGenerator";
+import { ProductRepository } from "../repositories/product";
 
 type RemoveProductRequest = {
     productId: string;
@@ -9,23 +9,22 @@ type RemoveProductRequest = {
 }
 
 export class RemoveProduct {
-    constructor(private managerRepository: ManagerRepository, private idGenerator: IdGeneratorInterface){}
+    constructor(private managerRepository: ManagerRepository, private productRepository: ProductRepository){}
 
     async execute(request:RemoveProductRequest){
         const manager = await this.managerRepository.findById(request.managerId);
+
         if(!manager){
             throw new ManagerNotFound();
         }
-        
-        const product = manager.getProduct(request.productId);
+
+        const product = await this.productRepository.findById(request.productId);
 
         if(!product){
             throw new ProductNotFound();
         }
         
-        manager.removeProduct(request.productId);
-
-        await this.managerRepository.update(manager);
+        await this.productRepository.delete(product);
 
     }
 }

@@ -1,5 +1,4 @@
 import { IdGenerator } from "../src/utils/idGenerator";
-import { Product } from "../src/entities/product";
 import { Seller } from "../src/entities/seller";
 import { makeManager } from "./factories/makeManager";
 import { makeProduct } from "./factories/makeProduct";
@@ -18,11 +17,9 @@ describe("Bussiness rules", () => {
     it("Shoult be able to create a Manager and add a seller", ()=>{
         const manager = makeManager();
 
-        const seller = new Seller({
+        const seller = makeSeller({
             name: "Seller Name",
-            email: "password",
-            password: "12345",
-        }, "seller_id")
+        })
 
         manager.addSeller(seller);
 
