@@ -16,25 +16,40 @@ model Manager {
   email    String @unique
   password String
 
-  sellers Seller[]
-  sales   Sale[]
+  sellers  Seller[]
+  products Product[]
+  sales    Sale[]
 }
 
 model Seller {
-  id        String   @unique
+  id        String  @unique
   name      String
-  email     String   @unique
+  email     String  @unique
   password  String
   sales     Sale[]
-  manager   Manager? @relation(fields: [managerId], references: [id])
-  managerId String?
+  manager   Manager @relation(fields: [managerId], references: [id])
+  managerId String
+}
+
+model Product {
+  id    String  @unique
+  name  String
+  price Decimal
+
+  manager   Manager @relation(fields: [managerId], references: [id])
+  managerId String
+  sale      Sale[]
 }
 
 model Sale {
   id        String  @unique
   value     Decimal
-  seller    Seller? @relation(fields: [sellerId], references: [id])
+  seller    Seller  @relation(fields: [sellerId], references: [id])
   manager   Manager @relation(fields: [managerId], references: [id])
-  sellerId  String?
+  product   Product @relation(fields: [productId], references: [id])
+  sellerId  String
   managerId String
+  productId String
+
+  createdAt DateTime @default(now())
 }

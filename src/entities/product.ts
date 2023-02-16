@@ -22,9 +22,14 @@ export class Product {
         };
     }
     
+    get name(){
+        return this.props.name;
+    }
+
     get price(){
         return this.props.price;
     }
+
     get id(){
         return this._id;
     }

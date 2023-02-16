@@ -30,8 +30,6 @@ export class PrismaManagerRepository implements ManagerRepository {
             }
         })
 
-        console.log(manager);
-
         if(!manager) return null;
 
         return PrismaManagerMapper.toDomain(manager);

@@ -43,4 +43,8 @@ export class Sale {
     get managerId(){
         return this.props.managerId;
     }
+
+    get createdAt(){
+        return this.props.createdAt;
+    }
 }
