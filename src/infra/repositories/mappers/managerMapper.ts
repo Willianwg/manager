@@ -1,5 +1,10 @@
 import { Manager } from "../../../entities/manager";
-import { Manager as RawManager } from "@prisma/client";
+import { Manager as RawManager, Seller } from "@prisma/client";
+import { PrismaSellerMapper } from "./sellerMapper";
+
+interface ManagerRaw extends RawManager {
+    sellers: Seller[];
+}
 
 export class PrismaManagerMapper {
     static toPrisma(manager: Manager){
@@ -11,11 +16,14 @@ export class PrismaManagerMapper {
         }
     }
 
-    static toDomain(manager: RawManager){
+    static toDomain(manager: ManagerRaw){
+        const sellersList = manager.sellers.map(PrismaSellerMapper.toDomain);
+
         return new Manager({
             name: manager.name,
             email: manager.email,
-            password: ""
+            password: "",
+            sellers: sellersList ?? [],
         }, manager.id)
     }
 }

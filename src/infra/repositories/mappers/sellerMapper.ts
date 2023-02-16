@@ -17,7 +17,7 @@ export class PrismaSellerMapper {
             name: seller.name,
             email: seller.email,
             password: "",
-            managerId: "",
+            managerId: seller.managerId ?? "",
         }, seller.id)
     }
 }

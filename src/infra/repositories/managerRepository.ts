@@ -24,8 +24,13 @@ export class PrismaManagerRepository implements ManagerRepository {
         const manager = await this.prisma.manager.findFirst({
             where:{
                 id
+            },
+            include:{
+                sellers: true,
             }
         })
+
+        console.log(manager);
 
         if(!manager) return null;
 
