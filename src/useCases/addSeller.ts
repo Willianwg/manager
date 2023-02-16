@@ -11,10 +11,14 @@ type AddSellerRequest = {
     managerId: string;
 }
 
+type AddSellerResponse = {
+    seller: Seller 
+}
+
 export class AddSeller {
     constructor(private managerRepository: ManagerRepository, private sellerRepository: SellerRepository, private idGenerator: IdGeneratorInterface){}
 
-    async execute(request:AddSellerRequest){
+    async execute(request:AddSellerRequest): Promise<AddSellerResponse> {
         const manager = await this.managerRepository.findById(request.managerId);
         if(!manager){
             throw new ManagerNotFound();

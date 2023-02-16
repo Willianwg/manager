@@ -97,4 +97,16 @@ export class Manager {
     get id(){
         return this._id;
     }
+
+    get name(){
+        return this.props.name;
+    }
+
+    get email(){
+        return this.props.email;
+    }
+
+    get password(){
+        return this.props.password;
+    }
 }

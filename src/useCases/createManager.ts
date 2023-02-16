@@ -8,10 +8,14 @@ type CreateManagerRequest = {
     password: string;
 }
 
+type CreateManagerResponse = {
+    manager: Manager;
+}
+
 export class CreateManager {
     constructor(private managerRepository: ManagerRepository, private idGenerator: IdGeneratorInterface){}
 
-    async execute(request:CreateManagerRequest){
+    async execute(request:CreateManagerRequest): Promise<CreateManagerResponse>{
         const id = this.idGenerator.generate();
         const manager = new Manager({
             name: request.name,
