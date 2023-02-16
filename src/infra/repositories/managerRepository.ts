@@ -27,6 +27,7 @@ export class PrismaManagerRepository implements ManagerRepository {
             },
             include:{
                 sellers: true,
+                products: true,
             }
         })
 

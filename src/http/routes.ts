@@ -6,6 +6,8 @@ import { IdGenerator } from "../utils/idGenerator";
 import { encryptPassword } from "./middlewares/encryptPassword";
 import { PrismaSellerRepository } from "../infra/repositories/sellerRepository";
 import { GetManager } from "../useCases/getManager";
+import { AddProduct } from "../useCases/addProduct";
+import { PrismaProductRepository } from "../infra/repositories/productRepository";
 
 const idGenerator = new IdGenerator();
 const managerRepository = new PrismaManagerRepository();
@@ -13,6 +15,8 @@ const createManager = new CreateManager(managerRepository, idGenerator);
 const sellerRepository = new PrismaSellerRepository();
 const addSeller = new AddSeller(managerRepository, sellerRepository, idGenerator);
 const getManager = new GetManager(managerRepository);
+const productRepository = new PrismaProductRepository();
+const addProduct = new AddProduct(managerRepository, productRepository, idGenerator);
 
 const router = Router();
 
@@ -49,8 +53,18 @@ router.post("/seller", encryptPassword, async (req, res)=>{
     return res.status(400).json({ error:"It was not possible to create a seller"});
 })
 
-router.post("/:manager_id/seller", encryptPassword, (req, res)=>{
-    return res.json("Hello");
+router.post("/product", async (req, res)=>{
+    const { product } = await addProduct.execute({
+        managerId: req.body.managerId,
+        name: req.body.name,
+        price: req.body.price,
+    })
+
+    if(product){
+        return res.json(product);
+    }
+
+    return res.status(404).json({ error:"It was not possible to find the manager"});
 })
 
 router.get("/manager/:id", async (req, res)=>{
