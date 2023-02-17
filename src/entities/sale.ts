@@ -1,8 +1,12 @@
 import { Replace } from "../helpers/Replace";
 import { Product } from "./product";
 
+type ProductInfo = {
+    id: string;
+}
+
 type SaleInfo = {
-    product: Product;
+    product: Product | ProductInfo;
     value: number;
     sellerId: string;
     managerId: string;

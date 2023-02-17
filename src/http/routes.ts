@@ -8,6 +8,8 @@ import { PrismaSellerRepository } from "../infra/repositories/sellerRepository";
 import { GetManager } from "../useCases/getManager";
 import { AddProduct } from "../useCases/addProduct";
 import { PrismaProductRepository } from "../infra/repositories/productRepository";
+import { AddSale } from "../useCases/addSale";
+import { PrismaSaleRepository } from "../infra/repositories/saleRepository";
 
 const idGenerator = new IdGenerator();
 const managerRepository = new PrismaManagerRepository();
@@ -17,6 +19,8 @@ const addSeller = new AddSeller(managerRepository, sellerRepository, idGenerator
 const getManager = new GetManager(managerRepository);
 const productRepository = new PrismaProductRepository();
 const addProduct = new AddProduct(managerRepository, productRepository, idGenerator);
+const saleRepository = new PrismaSaleRepository();
+const addSale = new AddSale(managerRepository, saleRepository, idGenerator);
 
 const router = Router();
 
@@ -65,6 +69,20 @@ router.post("/product", async (req, res)=>{
     }
 
     return res.status(404).json({ error:"It was not possible to find the manager"});
+})
+
+router.post("/sale", async (req, res)=>{
+    const { sale } = await addSale.execute({
+        managerId: req.body.managerId,
+        sellerId: req.body.sellerId,
+        productId: req.body.productId,
+    })
+
+    if(sale){
+        return res.json(sale);
+    }
+
+    return res.status(500).json({ error:"Something went wrong"});
 })
 
 router.get("/manager/:id", async (req, res)=>{
