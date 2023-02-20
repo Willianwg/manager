@@ -1,5 +1,5 @@
-import { Seller } from "../../src/entities/seller";
-import { SellerRepository } from "../../src/repositories/seller";
+import { Seller } from "../../src/domain/entities/seller";
+import { SellerRepository } from "../../src/domain/repositories/seller";
 
 export class InMemorySellerRepository implements SellerRepository {
     sellers: Seller[] = [];

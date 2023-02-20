@@ -1,8 +1,5 @@
 import { randomUUID } from "crypto";
-
-export interface IdGeneratorInterface {
-    generate(): string;
-}
+import { IdGeneratorInterface } from "../domain/contracts/IdGenerator";
 
 export class IdGenerator implements IdGeneratorInterface {
     generate(){

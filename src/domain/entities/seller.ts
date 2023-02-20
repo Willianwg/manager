@@ -1,10 +1,10 @@
-import { Replace } from "../helpers/Replace";
+import { Replace } from "../../helpers/Replace";
 import { Sale } from "./sale";
 
 export type SellerProps = {
     name: string;
     email: string;
-    password?: string;
+    password: string;
     sales: Sale[];
     managerId: string;
 }
@@ -13,7 +13,7 @@ export class Seller {
     private _id: string
     private props: SellerProps;
 
-    constructor(seller: Replace<SellerProps, { password?: string; sales?: Sale[] }>, id: string) {
+    constructor(seller: Replace<SellerProps, { sales?: Sale[] }>, id: string) {
         this._id = id;
         this.props = {
             name: seller.name,

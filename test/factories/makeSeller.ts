@@ -1,4 +1,4 @@
-import { Seller, SellerProps } from "../../src/entities/seller";
+import { Seller, SellerProps } from "../../src/domain/entities/seller";
 import { IdGenerator } from "../../src/utils/idGenerator";
 
 type Override = Partial<SellerProps>

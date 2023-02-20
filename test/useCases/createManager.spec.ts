@@ -1,4 +1,4 @@
-import { CreateManager } from "../../src/useCases/createManager";
+import { CreateManager } from "../../src/domain/useCases/createManager";
 import { IdGenerator } from "../../src/utils/idGenerator";
 import { InMemoryManagerRepository } from "../inMemoryDB/manager";
 

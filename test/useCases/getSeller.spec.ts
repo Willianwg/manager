@@ -1,8 +1,7 @@
-import { SellerNotFound } from "../../src/errors/sellerNotFound";
-import { GetSeller } from "../../src/useCases/getSeller";
+import { SellerNotFound } from "../../src/domain/errors/sellerNotFound";
+import { GetSeller } from "../../src/domain/useCases/getSeller";
 import { makeManager } from "../factories/makeManager";
 import { makeSeller } from "../factories/makeSeller";
-import { InMemoryManagerRepository } from "../inMemoryDB/manager";
 import { InMemorySellerRepository } from "../inMemoryDB/seller";
 
 // https://mystore.com/:manager_short_id/

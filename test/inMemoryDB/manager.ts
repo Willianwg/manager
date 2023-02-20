@@ -1,6 +1,6 @@
-import { Manager } from "../../src/entities/manager";
-import { Seller } from "../../src/entities/seller";
-import { ManagerRepository } from "../../src/repositories/manager";
+import { Manager } from "../../src/domain/entities/manager";
+import { Seller } from "../../src/domain/entities/seller";
+import { ManagerRepository } from "../../src/domain/repositories/manager";
 
 export class InMemoryManagerRepository implements ManagerRepository {
     managers: Manager[] = [];

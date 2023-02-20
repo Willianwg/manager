@@ -1,5 +1,5 @@
-import { Product } from "../../src/entities/product";
-import { ProductRepository } from "../../src/repositories/product";
+import { Product } from "../../src/domain/entities/product";
+import { ProductRepository } from "../../src/domain/repositories/product";
 
 export class InMemoryProductRepository implements ProductRepository {
     products: Product[] = [];

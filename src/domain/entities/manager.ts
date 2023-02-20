@@ -1,4 +1,4 @@
-import { Replace } from "../helpers/Replace";
+import { Replace } from "../../helpers/Replace";
 import { Product } from "./product";
 import { Sale } from "./sale";
 import { Seller } from "./seller";
@@ -96,5 +96,17 @@ export class Manager {
 
     get id(){
         return this._id;
+    }
+
+    get name(){
+        return this.props.name;
+    }
+
+    get email(){
+        return this.props.email;
+    }
+
+    get password(){
+        return this.props.password;
     }
 }
