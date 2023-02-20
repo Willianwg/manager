@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
-import { Manager } from "../../entities/manager";
-import { Seller } from "../../entities/seller";
-import { ManagerRepository } from "../../repositories/manager";
+import { Manager } from "../../domain/entities/manager";
+import { Seller } from "../../domain/entities/seller";
+import { ManagerRepository } from "../../domain/repositories/manager";
 import { PrismaManagerMapper } from "./mappers/managerMapper";
 
 

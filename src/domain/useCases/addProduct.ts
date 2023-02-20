@@ -1,8 +1,9 @@
+import { IdGeneratorInterface } from "../contracts/IdGenerator";
 import { Product } from "../entities/product";
 import { ManagerNotFound } from "../errors/managerNotFount";
 import { ManagerRepository } from "../repositories/manager";
 import { ProductRepository } from "../repositories/product";
-import { IdGeneratorInterface } from "../utils/idGenerator";
+
 
 type AddProductRequest = {
     name: string;

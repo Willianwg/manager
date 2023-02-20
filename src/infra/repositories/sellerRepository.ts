@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
-import { Seller } from "../../entities/seller";
-import { SellerRepository } from "../../repositories/seller";
+import { Seller } from "../../domain/entities/seller";
+import { SellerRepository } from "../../domain/repositories/seller";
 import { PrismaSellerMapper } from "./mappers/sellerMapper";
 
 

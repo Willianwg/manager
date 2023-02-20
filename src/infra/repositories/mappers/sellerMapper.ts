@@ -1,4 +1,4 @@
-import { Seller } from "../../../entities/seller";
+import { Seller } from "../../../domain/entities/seller";
 import { Seller as RawSeller } from "@prisma/client";
 
 export class PrismaSellerMapper {

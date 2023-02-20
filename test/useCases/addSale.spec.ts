@@ -1,7 +1,7 @@
-import { ManagerNotFound } from "../../src/errors/managerNotFount";
-import { ProductNotFound } from "../../src/errors/productNotFound";
-import { SellerNotFound } from "../../src/errors/sellerNotFound";
-import { AddSale } from "../../src/useCases/addSale";
+import { ManagerNotFound } from "../../src/domain/errors/managerNotFount";
+import { ProductNotFound } from "../../src/domain/errors/productNotFound";
+import { SellerNotFound } from "../../src/domain/errors/sellerNotFound";
+import { AddSale } from "../../src/domain/useCases/addSale";
 import { IdGenerator } from "../../src/utils/idGenerator";
 import { makeManager } from "../factories/makeManager";
 import { makeProduct } from "../factories/makeProduct";

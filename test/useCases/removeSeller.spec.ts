@@ -1,6 +1,6 @@
-import { ManagerNotFound } from "../../src/errors/managerNotFount";
-import { SellerNotFound } from "../../src/errors/sellerNotFound";
-import { RemoveSeller } from "../../src/useCases/removeSeller";
+import { ManagerNotFound } from "../../src/domain/errors/managerNotFount";
+import { SellerNotFound } from "../../src/domain/errors/sellerNotFound";
+import { RemoveSeller } from "../../src/domain/useCases/removeSeller";
 import { makeManager } from "../factories/makeManager";
 import { makeSeller } from "../factories/makeSeller";
 import { InMemoryManagerRepository } from "../inMemoryDB/manager";

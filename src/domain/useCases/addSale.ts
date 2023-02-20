@@ -1,11 +1,10 @@
+import { IdGeneratorInterface } from "../contracts/IdGenerator";
 import { Sale } from "../entities/sale";
 import { ManagerNotFound } from "../errors/managerNotFount";
 import { ProductNotFound } from "../errors/productNotFound";
 import { SellerNotFound } from "../errors/sellerNotFound";
 import { ManagerRepository } from "../repositories/manager";
 import { SaleRepository } from "../repositories/sale";
-import { SellerRepository } from "../repositories/seller";
-import { IdGeneratorInterface } from "../utils/idGenerator";
 
 type AddSaleRequest = {
     productId: string;

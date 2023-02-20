@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
-import { Product } from "../../entities/product";
-import { ProductRepository } from "../../repositories/product";
+import { Product } from "../../domain/entities/product";
+import { ProductRepository } from "../../domain/repositories/product";
 import { PrismaProductMapper } from "./mappers/productMapper";
 
 

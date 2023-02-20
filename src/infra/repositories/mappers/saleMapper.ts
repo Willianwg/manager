@@ -1,4 +1,4 @@
-import { Sale } from "../../../entities/sale";
+import { Sale } from "../../../domain/entities/sale";
 import { Sale as RawSale, Product } from "@prisma/client";
 import { PrismaProductMapper } from "./productMapper";
 

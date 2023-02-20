@@ -1,4 +1,4 @@
-import { Replace } from "../helpers/Replace";
+import { Replace } from "../../helpers/Replace";
 import { Product } from "./product";
 
 type ProductInfo = {

@@ -1,4 +1,4 @@
-import { Manager, ManagerProps } from "../../src/entities/manager";
+import { Manager, ManagerProps } from "../../src/domain/entities/manager";
 import { IdGenerator } from "../../src/utils/idGenerator";
 
 type Override = Partial<ManagerProps>

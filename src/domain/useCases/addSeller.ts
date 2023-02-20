@@ -1,8 +1,8 @@
+import { IdGeneratorInterface } from "../contracts/IdGenerator";
 import { Seller } from "../entities/seller";
 import { ManagerNotFound } from "../errors/managerNotFount";
 import { ManagerRepository } from "../repositories/manager";
 import { SellerRepository } from "../repositories/seller";
-import { IdGeneratorInterface } from "../utils/idGenerator";
 
 type AddSellerRequest = {
     name: string;

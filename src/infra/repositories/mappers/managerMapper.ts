@@ -1,8 +1,8 @@
-import { Manager } from "../../../entities/manager";
+import { Manager } from "../../../domain/entities/manager";
 import { Manager as RawManager, Product, Sale as RawSale, Seller } from "@prisma/client";
 import { PrismaSellerMapper } from "./sellerMapper";
 import { PrismaProductMapper } from "./productMapper";
-import { Sale } from "../../../entities/sale";
+import { Sale } from "../../../domain/entities/sale";
 
 interface ManagerRaw extends RawManager {
     sellers: Seller[];

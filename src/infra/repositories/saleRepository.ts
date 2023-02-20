@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
-import { Sale } from "../../entities/sale";
-import { Seller } from "../../entities/seller";
-import { SaleRepository } from "../../repositories/sale";
+import { Sale } from "../../domain/entities/sale";
+import { Seller } from "../../domain/entities/seller";
+import { SaleRepository } from "../../domain/repositories/sale";
 import { PrismaSaleMapper } from "./mappers/saleMapper";
 
 

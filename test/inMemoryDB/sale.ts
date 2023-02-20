@@ -1,5 +1,5 @@
-import { Sale } from "../../src/entities/sale";
-import { SaleRepository } from "../../src/repositories/sale";
+import { Sale } from "../../src/domain/entities/sale";
+import { SaleRepository } from "../../src/domain/repositories/sale";
 
 export class InMemorySaleRepository implements SaleRepository {
     sales: Sale[] = [];

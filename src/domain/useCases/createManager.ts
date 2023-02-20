@@ -1,6 +1,6 @@
+import { IdGeneratorInterface } from "../contracts/IdGenerator";
 import { Manager } from "../entities/manager";
 import { ManagerRepository } from "../repositories/manager";
-import { IdGeneratorInterface } from "../utils/idGenerator";
 
 type CreateManagerRequest = {
     name: string;

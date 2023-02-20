@@ -1,4 +1,4 @@
-import { Product, ProductProps } from "../../src/entities/product";
+import { Product, ProductProps } from "../../src/domain/entities/product";
 import { IdGenerator } from "../../src/utils/idGenerator";
 
 type Override = Partial<ProductProps>

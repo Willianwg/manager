@@ -1,14 +1,14 @@
 import { Router } from "express";
 import { PrismaManagerRepository } from "../infra/repositories/managerRepository";
-import { CreateManager } from "../useCases/createManager";
-import { AddSeller } from "../useCases/addSeller";
+import { CreateManager } from "../domain/useCases/createManager";
+import { AddSeller } from "../domain/useCases/addSeller";
 import { IdGenerator } from "../utils/idGenerator";
 import { encryptPassword } from "./middlewares/encryptPassword";
 import { PrismaSellerRepository } from "../infra/repositories/sellerRepository";
-import { GetManager } from "../useCases/getManager";
-import { AddProduct } from "../useCases/addProduct";
+import { GetManager } from "../domain/useCases/getManager";
+import { AddProduct } from "../domain/useCases/addProduct";
 import { PrismaProductRepository } from "../infra/repositories/productRepository";
-import { AddSale } from "../useCases/addSale";
+import { AddSale } from "../domain/useCases/addSale";
 import { PrismaSaleRepository } from "../infra/repositories/saleRepository";
 
 const idGenerator = new IdGenerator();
