@@ -1,50 +1,10 @@
 import Head from 'next/head';
-import { Line } from 'react-chartjs-2';
 import { useState, useEffect } from 'react';
-import {
-    Chart as ChartJS,
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend,
-    Filler
-  } from 'chart.js'
-  import { Chart } from 'react-chartjs-2'
-  
-  ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend,
-    Filler
-  )
+import LineChart from '@/components/LineChart';
 
 export default function Dashboard() {
     const [value, setValue] = useState(0);
     const [results, setResults] = useState<number[]>([]);
-    const data = {
-        labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
-        datasets: [
-            {
-                label: 'Sales',
-                data: results,
-                backgroundColor: 'rgb(200,200,250)',
-                borderColor: 'rgb(20,100,200)',
-                borderWidth: 2,
-                fill: {
-                    target: 'origin',
-                    above: 'rgba(10, 100, 250,0.3)', // Area will be red above the origin
-                    below: 'rgba(20,20,20)', // And blue below the origin
-                },
-            },
-        ],
-    };
 
     function load() {
         const values: number[] = [100, 300, 274, 266.5, 400, 420.3, 390, 500];
@@ -57,25 +17,13 @@ export default function Dashboard() {
         setTimeout(load, 2000);
     }, []);
 
-    const options = {
-        scales: {
-            y: {
-                beginAtZero: true,
-            },
-        },
-        plugins: {
-            legend: {
-                display: false,
-            },
-        },
-    };
-
     function formatToCurrency(num: number) {
         return Intl.NumberFormat('pt-BR', {
             style: 'currency',
             currency: 'brl',
         }).format(num);
     }
+
     return (
         <div className="bg-blue-100 justify-center items-center flex flex-col gap-10 h-screen">
             <Head>
@@ -94,7 +42,7 @@ export default function Dashboard() {
                         {formatToCurrency(value)}
                     </h1>
                     <div className="">
-                        <Line data={data} options={options} />
+                        <LineChart values={results} />
                     </div>
                 </div>
             </section>
