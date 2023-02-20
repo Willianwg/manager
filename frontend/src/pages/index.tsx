@@ -1,6 +1,14 @@
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 
 export default function Home() {
+  const router = useRouter();
+
+  function handleSubmit(e: React.FormEvent<HTMLElement>){
+    e.preventDefault();
+    router.push("/Dashboard")
+  }
+
   return (
     <div className="h-screen bg-red-300 flex">
       <Head>
@@ -9,7 +17,7 @@ export default function Home() {
 
       <div className="bg-black h-full w-2/5 hidden sm:block">aaaaaaa</div>
       <div className=" flex flex-col bg-blue-100 h-full flex flex-col w-full sm:w-3/5 items-center justify-center px-10">
-        <div className="gap-5  w-full flex flex-col p-2 items-center max-w-md h-3/5 justify-around mb-2">
+        <form onSubmit={handleSubmit} className="gap-5  w-full flex flex-col p-2 items-center max-w-md h-3/5 justify-around mb-2">
           <div className="">
             <p className="text-4xl text-blue-700 font-medium font-serif">Managerr</p>
           </div>
@@ -39,7 +47,7 @@ export default function Home() {
             </div>
           </div>
 
-          <button className="bg-blue-700 rounded-md w-full text-blue-100 text-lg font-bold hover:bg-blue-600 h-12">
+          <button type='submit' className="bg-blue-700 rounded-md w-full text-blue-100 text-lg font-bold hover:bg-blue-600 h-12">
             <p className="active:text-base">Login</p>
           </button>
 
@@ -54,7 +62,7 @@ export default function Home() {
               </a>
             </p>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );
