@@ -37,4 +37,8 @@ export class Product {
     get managerId(){
         return this.props.managerId;
     }
+
+    get createdAt(){
+        return this.props.createdAt;
+    }
 }

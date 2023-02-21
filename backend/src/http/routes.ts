@@ -10,6 +10,7 @@ import { AddProduct } from "../domain/useCases/addProduct";
 import { PrismaProductRepository } from "../infra/repositories/productRepository";
 import { AddSale } from "../domain/useCases/addSale";
 import { PrismaSaleRepository } from "../infra/repositories/saleRepository";
+import { HttpManagerMapper } from "./mappers/httpManager";
 
 const idGenerator = new IdGenerator();
 const managerRepository = new PrismaManagerRepository();
@@ -91,7 +92,7 @@ router.get("/manager/:id", async (req, res)=>{
     })
 
     if(manager){
-        return res.json(manager);
+        return res.json(HttpManagerMapper.toHttp(manager));
     }
 
     return res.status(404).json({ error:"It was not possible to find the manager"});
