@@ -1,22 +1,25 @@
 import Head from 'next/head';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 
 export default function Home() {
   const router = useRouter();
 
-  function handleSubmit(e: React.FormEvent<HTMLElement>){
+  function handleSubmit(e: React.FormEvent<HTMLElement>) {
     e.preventDefault();
     router.push("/Dashboard")
   }
 
   return (
-    <div className="h-screen bg-red-300 flex">
+    <div className="h-screen bg-blue-100 flex">
       <Head>
         <title>Managerr</title>
       </Head>
 
-      <div className="bg-black h-full w-2/5 hidden sm:block">aaaaaaa</div>
-      <div className=" flex flex-col bg-blue-100 h-full flex flex-col w-full sm:w-3/5 items-center justify-center px-10">
+
+      <img src="image.svg" alt='office' className='hidden sm:block w-2/4 h-full pointer-events-none' />
+
+      <div className=" flex flex-col h-full flex flex-col w-full sm:w-3/5 items-center justify-center px-10">
         <form onSubmit={handleSubmit} className="gap-5  w-full flex flex-col p-2 items-center max-w-md h-3/5 justify-around mb-2">
           <div className="">
             <p className="text-4xl text-blue-700 font-medium font-serif">Managerr</p>
