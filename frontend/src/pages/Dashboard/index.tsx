@@ -5,6 +5,7 @@ import { useApi } from '@/services/axios';
 import { Seller, SellerProps } from '@/components/Seller';
 import { Manager, ManagerProps } from '@/components/Manager';
 import { formatToCurrency } from '@/utils/formatToCurrency';
+import { GetServerSideProps } from 'next';
 
 export type ProductProps = {
     id: string;
@@ -21,11 +22,11 @@ export type SaleProps = {
 }
 
 
-export default function Dashboard() {
-    const [value, setValue] = useState(0);
-    const [results, setResults] = useState<number[]>([]);
-    const [manager, setManager] = useState<ManagerProps | null>(null);
-    const [sellers, setSellers] = useState<SellerProps[]>([]);
+export default function Dashboard({ managerR, sellerss, resultss, valuee }: { managerR: ManagerProps,  sellerss:SellerProps[], resultss: number[], valuee: number }) {
+    const [value, setValue] = useState(valuee);
+    const [results, setResults] = useState<number[]>(resultss);
+    const [manager, setManager] = useState<ManagerProps | null>(managerR);
+    const [sellers, setSellers] = useState<SellerProps[]>(sellerss);
     const api = useApi();
 
     const products: ProductProps[] = [{
@@ -96,16 +97,34 @@ export default function Dashboard() {
                             </h1>
                             <div className="">
                                 <div className="flex w-80 items-center justify-between">
-                                   { sellers.map((seller, key)=>(
-                                    <Seller key={key} seller={seller} />
-                                   ))}
+                                    {sellers.map((seller, key) => (
+                                        <Seller key={key} seller={seller} />
+                                    ))}
                                 </div>
                             </div>
                         </div>
                     </section>
                 </div>
-                {manager && <Manager manager={manager}/>}
+                {manager && <Manager manager={manager} />}
             </main>
         </div>
     );
 }
+
+export const getServerSideProps: GetServerSideProps = async () => {
+    const api = useApi();
+    const managerr: ManagerProps = await api.getManager();
+
+    const sales = managerr.sales.map(sale => sale.value);
+    const sellers = managerr.sellers;
+   
+    return {
+        props: {
+            managerR: managerr,
+            sellerss: sellers,
+            resultss: sales,
+            valuee: sales.reduce((a, b) => a + b)
+
+        }
+    }
+} 
