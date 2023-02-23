@@ -49,7 +49,7 @@ export default function LineChart({ values }: { values: number[] }) {
     const options = {
         scales: {
             y: {
-                beginAtZero: true,
+                beginAtZero: false,
             },
         },
         plugins: {

@@ -1,8 +1,7 @@
 import { useApi } from '@/services/axios';
 import Head from 'next/head';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+
 
 export default function Home() {
   const router = useRouter();
@@ -12,16 +11,6 @@ export default function Home() {
     e.preventDefault();
     router.push("/Dashboard")
   }
-
-  useEffect(()=>{
-    async function call(){
-      const response = await api.hello();
-
-      alert(response);
-    }
-
-    call();
-  }, [])
 
   return (
     <div className="h-screen bg-blue-100 flex">

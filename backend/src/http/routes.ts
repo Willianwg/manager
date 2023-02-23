@@ -29,6 +29,11 @@ router.get("/", (req, res)=>{
     return res.send("Hello");
 })
 
+router.get("/sale/:product_id", (req, res)=>{
+    const {product_id} = req.params;
+    return res.send(product_id);
+})
+
 router.post("/manager", encryptPassword, async (req, res)=>{
     const { manager } = await createManager.execute({
         email: req.body.email,
