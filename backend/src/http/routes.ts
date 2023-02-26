@@ -11,6 +11,7 @@ import { PrismaProductRepository } from "../infra/repositories/productRepository
 import { AddSale } from "../domain/useCases/addSale";
 import { PrismaSaleRepository } from "../infra/repositories/saleRepository";
 import { HttpManagerMapper } from "./mappers/httpManager";
+import { GetProduct } from "../domain/useCases/getProduct";
 
 const idGenerator = new IdGenerator();
 const managerRepository = new PrismaManagerRepository();
@@ -22,6 +23,7 @@ const productRepository = new PrismaProductRepository();
 const addProduct = new AddProduct(managerRepository, productRepository, idGenerator);
 const saleRepository = new PrismaSaleRepository();
 const addSale = new AddSale(managerRepository, saleRepository, idGenerator);
+const getProduct = new GetProduct(productRepository);
 
 const router = Router();
 
@@ -75,6 +77,18 @@ router.post("/product", async (req, res)=>{
     }
 
     return res.status(404).json({ error:"It was not possible to find the manager"});
+})
+
+router.get("/product/:productId", async (req, res)=>{
+    const { product } = await getProduct.execute({
+       productId: req.params.productId
+    })
+
+    if(product){
+        return res.json(product);
+    }
+
+    return res.status(404).json({ error:"Product not found"});
 })
 
 router.post("/sale", async (req, res)=>{
