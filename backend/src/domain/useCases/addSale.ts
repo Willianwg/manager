@@ -1,6 +1,6 @@
 import { IdGeneratorInterface } from "../contracts/IdGenerator";
 import { Sale } from "../entities/sale";
-import { ManagerNotFound } from "../errors/managerNotFount";
+import { ManagerNotFound } from "../errors/managerNotFound";
 import { ProductNotFound } from "../errors/productNotFound";
 import { SellerNotFound } from "../errors/sellerNotFound";
 import { ManagerRepository } from "../repositories/manager";

@@ -1,4 +1,4 @@
-import { ManagerNotFound } from "../../src/domain/errors/managerNotFount";
+import { ManagerNotFound } from "../../src/domain/errors/managerNotFound";
 import { GetManager } from "../../src/domain/useCases/getManager";
 import { makeManager } from "../factories/makeManager";
 import { InMemoryManagerRepository } from "../inMemoryDB/manager";

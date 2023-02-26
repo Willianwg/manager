@@ -1,4 +1,4 @@
-import { ManagerNotFound } from "../errors/managerNotFount";
+import { ManagerNotFound } from "../errors/managerNotFound";
 import { SellerNotFound } from "../errors/sellerNotFound";
 import { ManagerRepository } from "../repositories/manager";
 import { SellerRepository } from "../repositories/seller";

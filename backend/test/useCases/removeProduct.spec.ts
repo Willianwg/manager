@@ -1,4 +1,4 @@
-import { ManagerNotFound } from "../../src/domain/errors/managerNotFount";
+import { ManagerNotFound } from "../../src/domain/errors/managerNotFound";
 import { ProductNotFound } from "../../src/domain/errors/productNotFound";
 import { RemoveProduct } from "../../src/domain/useCases/removeProduct";
 import { makeManager } from "../factories/makeManager";
