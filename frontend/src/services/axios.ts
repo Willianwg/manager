@@ -19,5 +19,11 @@ export const useApi = ()=>({
 
         return response.data;
 
+    },
+
+    async getProduct(productId: string){
+        const response = await api.get("/product/" + productId);
+
+        return response.data;
     }
 })

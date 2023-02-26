@@ -12,6 +12,7 @@ import { AddSale } from "../domain/useCases/addSale";
 import { PrismaSaleRepository } from "../infra/repositories/saleRepository";
 import { HttpManagerMapper } from "./mappers/httpManager";
 import { GetProduct } from "../domain/useCases/getProduct";
+import { HttpProductMapper } from "./mappers/httpProduct";
 
 const idGenerator = new IdGenerator();
 const managerRepository = new PrismaManagerRepository();
@@ -85,7 +86,7 @@ router.get("/product/:productId", async (req, res)=>{
     })
 
     if(product){
-        return res.json(product);
+        return res.json(HttpProductMapper.toHttp(product));
     }
 
     return res.status(404).json({ error:"Product not found"});
