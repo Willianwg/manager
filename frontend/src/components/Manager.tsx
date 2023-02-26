@@ -15,7 +15,7 @@ export function Manager({ manager }: { manager: ManagerProps }) {
 
     return (
         <>
-            <section className="bg-white rounded-lg p-5 shadow-xl h-min">
+            <section className="h-min">
                 <p>{manager.name}</p>
             </section>
         </>

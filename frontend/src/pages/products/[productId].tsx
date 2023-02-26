@@ -1,8 +1,6 @@
 import { Paypal } from "@/components/paypal";
 import { useApi } from "@/services/axios";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 import { ProductProps } from "../Dashboard";
 
 
@@ -10,7 +8,7 @@ export default function ProductDetails({ productId, productName, price }: { prod
 
 
     return (
-        <div className="h-screen flex flex-col justify-center items-center">
+        <div className="h-screen flex flex-col justify-center items-center bg-blue-100">
             <section>
                 <p>{productName}</p>
                 <p>{price}</p>

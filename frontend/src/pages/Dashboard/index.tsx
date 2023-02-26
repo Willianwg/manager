@@ -67,7 +67,7 @@ export default function Dashboard({ managerR, sellerss, resultss, valuee }: { ma
             </Head>
             <main className='flex gap-2'>
                 <div className="gap-2 flex flex-col">
-                    <section className="bg-white rounded-lg p-5 shadow-xl">
+                    <section >
                         <div className="mb-3">
                             <label className="font-bold text-slate-800">Balance</label>
                         </div>
@@ -84,7 +84,7 @@ export default function Dashboard({ managerR, sellerss, resultss, valuee }: { ma
                         </div>
                     </section>
 
-                    <section className="bg-white rounded-lg p-5 shadow-xl">
+                    <section >
                         <div className="mb-3">
                             <label className="font-bold text-slate-800">Sellers</label>
                         </div>
