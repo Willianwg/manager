@@ -1,8 +1,8 @@
 
 
 export function formatToCurrency(num: number) {
-    return Intl.NumberFormat('pt-BR', {
+    return Intl.NumberFormat('en-US', {
         style: 'currency',
-        currency: 'brl',
+        currency: 'usd',
     }).format(num);
 }

@@ -1,18 +1,19 @@
 import { Paypal } from "@/components/paypal";
 import { useApi } from "@/services/axios";
+import { formatToCurrency } from "@/utils/formatToCurrency";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { ProductProps } from "../Dashboard";
 
 
-export default function ProductDetails({ productId, productName, price }: { productId: string, productName: string, price: number }) {
-
+export default function ProductDetails({ product, sellerId }: { product: ProductProps, sellerId: string | null }) {
 
     return (
         <div className="h-screen flex flex-col justify-center items-center bg-blue-100">
             <section>
-                <p>{productName}</p>
-                <p>{price}</p>
-                <Paypal price={price} />
+                <p>{product.name}</p>
+                <p>{formatToCurrency(product.price)}</p>
+                <p>{sellerId}</p>
+                <Paypal price={product.price} />
             </section>
         </div>
     )
@@ -21,15 +22,19 @@ export default function ProductDetails({ productId, productName, price }: { prod
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
     const api = useApi();
     const { productId } = context.query;
+    let sellerId = null;
+
+    if(context.query.rel){
+        sellerId = context.query.rel;
+    }
 
     const id = typeof productId === "string" ? productId : "";
     const product: ProductProps = await api.getProduct(id);
 
     return {
         props: {
-            productName: product.name,
-            price: product.price,
-            productId
+            product,
+            sellerId,
         }
     }
 }
