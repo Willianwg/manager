@@ -27,38 +27,6 @@ export default function Dashboard({ managerR, sellerss, resultss, valuee }: { ma
     const [results, setResults] = useState<number[]>(resultss);
     const [manager, setManager] = useState<ManagerProps | null>(managerR);
     const [sellers, setSellers] = useState<SellerProps[]>(sellerss);
-    const api = useApi();
-
-    const products: ProductProps[] = [{
-        id: "d5ed579d-db8a-4be0-a4c4-21683ffb679b",
-        name: "Ford Car",
-        price: 60000,
-    }]
-
-    function load() {
-        const values: number[] = [100, 300, 274, 266.5, 400, 420.3, 390, 500];
-
-        setValue(values.reduce((a, b) => a + b));
-        setResults(values);
-    }
-
-    useEffect(() => {
-
-
-        async function loadData() {
-            const managerr: ManagerProps = await api.getManager();
-            setManager(managerr);
-
-            const sales = managerr.sales.map(sale => sale.value);
-            const sellers = managerr.sellers;
-            setSellers(sellers);
-            setResults(sales);
-            setValue(sales.reduce((a, b) => a + b));
-
-        }
-
-        loadData();
-    }, []);
 
     return (
         <div className="bg-blue-100 justify-center items-center flex flex-col gap-10 h-screen">

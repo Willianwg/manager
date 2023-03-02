@@ -29,7 +29,7 @@ export default function LineChart({ values }: { values: number[] }) {
     const [results, setResults] = useState<number[]>(values);
 
     const data = {
-        labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+        labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
         datasets: [
             {
                 label: 'Sales',
