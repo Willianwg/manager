@@ -1,9 +1,11 @@
+import { SaleProps } from "@/pages/Dashboard";
 import { formatToCurrency } from "@/utils/formatToCurrency";
 
 export type SellerProps = {
     id: string,
     name: string,
     email: string
+    sales: SaleProps[]
 }
 
 export function Seller({ seller }: { seller: SellerProps }) {
@@ -15,7 +17,7 @@ export function Seller({ seller }: { seller: SellerProps }) {
                 <p className="">{ seller.name }</p>
             </div>
             <div className="flex w-2/5 justify-between items-center">
-                <p className="">{formatToCurrency(1000)}</p>
+                <p className="">{formatToCurrency(seller.sales?.map(sale=> sale.value).reduce((a,b)=> a+b))}</p>
                 <button className="font-bold text-slate400">{">"}</button>
             </div>
         </>
