@@ -22,8 +22,13 @@ export const useApi = ()=>({
     },
 
     async getProduct(productId: string){
-        const response = await api.get("/product/" + productId);
+        try {
+            const response = await api.get("/product/" + productId);
+            return response.data;
+        } catch {
+            return null;
+        }
 
-        return response.data;
+       
     }
 })
