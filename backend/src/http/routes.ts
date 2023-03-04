@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { ErrorRequestHandler, Router } from "express";
 import { PrismaManagerRepository } from "../infra/repositories/managerRepository";
 import { CreateManager } from "../domain/useCases/createManager";
 import { AddSeller } from "../domain/useCases/addSeller";
@@ -13,6 +13,8 @@ import { PrismaSaleRepository } from "../infra/repositories/saleRepository";
 import { HttpManagerMapper } from "./mappers/httpManager";
 import { GetProduct } from "../domain/useCases/getProduct";
 import { HttpProductMapper } from "./mappers/httpProduct";
+import { PasswordEncoder } from "../utils/passwordEncoder";
+import { ManagerLogin } from "../domain/useCases/managerLogin";
 
 const idGenerator = new IdGenerator();
 const managerRepository = new PrismaManagerRepository();
@@ -25,6 +27,8 @@ const addProduct = new AddProduct(managerRepository, productRepository, idGenera
 const saleRepository = new PrismaSaleRepository();
 const addSale = new AddSale(managerRepository, saleRepository, idGenerator);
 const getProduct = new GetProduct(productRepository);
+const passwordEncoder = new PasswordEncoder();
+const managerLogin = new ManagerLogin(managerRepository, passwordEncoder);
 
 const router = Router();
 
@@ -49,6 +53,20 @@ router.post("/manager", encryptPassword, async (req, res) => {
     }
 
     return res.status(400).json({ error: "It was not possible to create a manager" });
+})
+
+router.post("/manager/login", async (req, res) => {
+   try {
+    const { manager } = await managerLogin.execute({
+        email: req.body.email,
+        password: req.body.password,
+    });
+
+    return res.json(HttpManagerMapper.toHttp(manager));
+
+   } catch(err: any){
+       return res.status(401).json({ error: err.message });
+   } 
 })
 
 router.post("/seller", encryptPassword, async (req, res) => {

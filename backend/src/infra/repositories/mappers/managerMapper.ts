@@ -39,7 +39,7 @@ export class PrismaManagerMapper {
         return new Manager({
             name: manager.name,
             email: manager.email,
-            password: "",
+            password: manager.password,
             sellers: sellersList,
             products: productsList,
             sales: salesList,
