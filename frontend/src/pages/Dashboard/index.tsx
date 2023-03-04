@@ -23,7 +23,7 @@ export type SaleProps = {
 }
 
 
-export default function Dashboard({ managerR, sellerss, resultss, valuee }: { managerR: ManagerProps,  sellerss:SellerProps[], resultss: number[], valuee: number }) {
+export default function Dashboard({ managerR, sellerss, resultss, valuee }: { managerR: ManagerProps, sellerss: SellerProps[], resultss: number[], valuee: number }) {
     const [value, setValue] = useState(valuee);
     const [results, setResults] = useState<number[]>(resultss);
     const [manager, setManager] = useState<ManagerProps | null>(managerR);
@@ -65,9 +65,12 @@ export default function Dashboard({ managerR, sellerss, resultss, valuee }: { ma
                                 {results.length}
                             </h1>
                             <div className="">
-                                <div className="flex w-80 items-center justify-between">
+                                <div className="flex flex-col w-80 items-center justify-between gap-4">
                                     {sellers.map((seller, key) => (
-                                        <Seller key={key} seller={seller} />
+                                        <>
+                                            <hr className='w-full'/>
+                                            <Seller key={key} seller={seller} />
+                                        </>
                                     ))}
                                 </div>
                             </div>
@@ -86,7 +89,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
     const sales = managerr.sales.map(sale => sale.value);
     const sellers = managerr.sellers;
-   
+
     return {
         props: {
             managerR: managerr,
