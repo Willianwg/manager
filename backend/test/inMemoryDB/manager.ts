@@ -15,6 +15,12 @@ export class InMemoryManagerRepository implements ManagerRepository {
         return manager? manager: null;
     }
 
+    async findByEmail(email: string): Promise<Manager | null> {
+        const manager = this.managers.find(item => item.email === email);
+
+        return manager? manager: null;
+    }
+
     async update(manager: Manager): Promise<void> {
         const managerIndex = this.managers.findIndex(item=> item.id === manager.id);
         this.managers[managerIndex] = manager;
