@@ -60,7 +60,7 @@ router.post("/seller", encryptPassword, async (req, res) => {
     });
 
     if (seller) {
-        return res.json(seller);
+        return res.status(201).json(seller);
     }
 
     return res.status(400).json({ error: "It was not possible to create a seller" });

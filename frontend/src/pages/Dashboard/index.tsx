@@ -6,6 +6,7 @@ import { Seller, SellerProps } from '@/components/Seller';
 import { Manager, ManagerProps } from '@/components/Manager';
 import { formatToCurrency } from '@/utils/formatToCurrency';
 import { GetServerSideProps } from 'next';
+import { RegisterSellerForm } from '@/components/registerSellerForm';
 
 export type ProductProps = {
     id: string;
@@ -73,7 +74,7 @@ export default function Dashboard({ managerR, sellerss, resultss, valuee }: { ma
                         </div>
                     </section>
                 </div>
-                {manager && <Manager manager={manager} />}
+                <RegisterSellerForm />
             </main>
         </div>
     );

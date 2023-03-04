@@ -52,7 +52,7 @@ export default function Home() {
             </div>
           </div>
 
-          <button type='submit' className="bg-blue-700 rounded-md w-full text-blue-100 text-lg font-bold hover:bg-blue-600 h-12">
+          <button type='submit' className="submit-btn">
             <p className="active:text-base">Login</p>
           </button>
 

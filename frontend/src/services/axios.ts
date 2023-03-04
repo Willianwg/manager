@@ -2,6 +2,13 @@ import { ProductProps } from "@/pages/Dashboard";
 import axios from "axios"
 import { backUrl } from "backUrl"
 
+type RegisterSellerDto = {
+    managerId: string;
+    email: string;
+    password: string;
+    name: string;
+}
+
 const api = axios.create({
     baseURL: backUrl,
 })
@@ -30,5 +37,11 @@ export const useApi = ()=>({
         }
 
        
+    },
+
+    async registerSeller(sellerInfo: RegisterSellerDto){
+        const response = await api.post("/seller", sellerInfo);
+
+        return response.status;
     }
 })

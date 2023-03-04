@@ -5,3 +5,7 @@
 section {
     @apply bg-white rounded-lg p-5 shadow-xl;
 }
+
+.submit-btn {
+    @apply bg-blue-700 rounded-md w-full text-blue-100 text-lg font-bold hover:bg-blue-600 h-12;
+}
