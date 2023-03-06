@@ -23,7 +23,7 @@ export type SaleProps = {
 }
 
 
-export default function Dashboard({ managerR, sellerss, resultss, valuee }: { managerR: ManagerProps, sellerss: SellerProps[], resultss: number[], valuee: number }) {
+export default function Dashboard({ managerR, sellerss, resultss, valuee, salee }: { salee: SaleProps[], managerR: ManagerProps, sellerss: SellerProps[], resultss: number[], valuee: number }) {
     const [value, setValue] = useState(valuee);
     const [results, setResults] = useState<number[]>(resultss);
     const [manager, setManager] = useState<ManagerProps | null>(managerR);
@@ -48,7 +48,7 @@ export default function Dashboard({ managerR, sellerss, resultss, valuee }: { ma
                                 {formatToCurrency(value)}
                             </h1>
                             <div className="">
-                                <LineChart values={results} />
+                                <LineChart values={results} sales={salee}/>
                             </div>
                         </div>
                     </section>
@@ -67,10 +67,10 @@ export default function Dashboard({ managerR, sellerss, resultss, valuee }: { ma
                             <div className="">
                                 <div className="flex flex-col w-80 items-center justify-between gap-4">
                                     {sellers.map((seller, key) => (
-                                        <>
-                                            <hr className='w-full'/>
-                                            <Seller key={key} seller={seller} />
-                                        </>
+                                        <div className="flex flex-col w-full" key={key}>
+                                            <hr className='w-full' />
+                                            <Seller  seller={seller} />
+                                        </div>
                                     ))}
                                 </div>
                             </div>
@@ -95,6 +95,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
             managerR: managerr,
             sellerss: sellers,
             resultss: sales,
+            salee: managerr.sales,
             valuee: sales.reduce((a, b) => a + b)
 
         }

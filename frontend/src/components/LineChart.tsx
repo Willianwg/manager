@@ -11,7 +11,10 @@ import {
     Legend,
     Filler
 } from 'chart.js'
-import { Chart } from 'react-chartjs-2'
+import { Chart } from 'react-chartjs-2';
+import { generateDates } from '@/utils/generateDates';
+import { fillChart } from '@/utils/fillChart';
+import { SaleProps } from '@/pages/Dashboard';
 
 ChartJS.register(
     CategoryScale,
@@ -24,16 +27,15 @@ ChartJS.register(
     Filler
 )
 
-export default function LineChart({ values }: { values: number[] }) {
-
-    const [results, setResults] = useState<number[]>(values);
+export default function LineChart({ values, sales }: { values: number[], sales:SaleProps[] }) {
+    const dates = generateDates()
 
     const data = {
-        labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+        labels: dates,
         datasets: [
             {
                 label: 'Sales',
-                data: results,
+                data: fillChart(sales, dates),
                 backgroundColor: 'rgb(200,200,250)',
                 borderColor: 'rgb(20,100,200)',
                 borderWidth: 2,
@@ -49,7 +51,7 @@ export default function LineChart({ values }: { values: number[] }) {
     const options = {
         scales: {
             y: {
-                beginAtZero: false,
+                beginAtZero: true,
             },
         },
         plugins: {
@@ -58,10 +60,6 @@ export default function LineChart({ values }: { values: number[] }) {
             },
         },
     };
-
-    useEffect(()=>{
-        setResults(values);
-    }, [values])
-
+    
     return <Line data={data} options={options} />
 }
