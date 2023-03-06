@@ -6,4 +6,5 @@ export interface ManagerRepository {
     findById(id: string): Promise<Manager | null>;
     update(manager: Manager): Promise<void>;
     findSeller(managerId: string, sellerId: string): Promise<Seller | null>
+    findByEmail(email: string): Promise<Manager | null>
 }

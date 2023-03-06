@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { ErrorRequestHandler, Router } from "express";
 import { PrismaManagerRepository } from "../infra/repositories/managerRepository";
 import { CreateManager } from "../domain/useCases/createManager";
 import { AddSeller } from "../domain/useCases/addSeller";
@@ -11,6 +11,10 @@ import { PrismaProductRepository } from "../infra/repositories/productRepository
 import { AddSale } from "../domain/useCases/addSale";
 import { PrismaSaleRepository } from "../infra/repositories/saleRepository";
 import { HttpManagerMapper } from "./mappers/httpManager";
+import { GetProduct } from "../domain/useCases/getProduct";
+import { HttpProductMapper } from "./mappers/httpProduct";
+import { PasswordEncoder } from "../utils/passwordEncoder";
+import { ManagerLogin } from "../domain/useCases/managerLogin";
 
 const idGenerator = new IdGenerator();
 const managerRepository = new PrismaManagerRepository();
@@ -22,28 +26,50 @@ const productRepository = new PrismaProductRepository();
 const addProduct = new AddProduct(managerRepository, productRepository, idGenerator);
 const saleRepository = new PrismaSaleRepository();
 const addSale = new AddSale(managerRepository, saleRepository, idGenerator);
+const getProduct = new GetProduct(productRepository);
+const passwordEncoder = new PasswordEncoder();
+const managerLogin = new ManagerLogin(managerRepository, passwordEncoder);
 
 const router = Router();
 
-router.get("/", (req, res)=>{
+router.get("/", (req, res) => {
     return res.send("Hello");
 })
 
-router.post("/manager", encryptPassword, async (req, res)=>{
+router.get("/sale/:product_id", (req, res) => {
+    const { product_id } = req.params;
+    return res.send(product_id);
+})
+
+router.post("/manager", encryptPassword, async (req, res) => {
     const { manager } = await createManager.execute({
         email: req.body.email,
         name: req.body.name,
         password: req.body.password,
     });
 
-    if(manager){
+    if (manager) {
         return res.json(manager);
     }
 
-    return res.status(400).json({ error:"It was not possible to create a manager"});
+    return res.status(400).json({ error: "It was not possible to create a manager" });
 })
 
-router.post("/seller", encryptPassword, async (req, res)=>{
+router.post("/manager/login", async (req, res) => {
+   try {
+    const { manager } = await managerLogin.execute({
+        email: req.body.email,
+        password: req.body.password,
+    });
+
+    return res.json(HttpManagerMapper.toHttp(manager));
+
+   } catch(err: any){
+       return res.status(401).json({ error: err.message });
+   } 
+})
+
+router.post("/seller", encryptPassword, async (req, res) => {
     const { seller } = await addSeller.execute({
         email: req.body.email,
         name: req.body.name,
@@ -51,60 +77,74 @@ router.post("/seller", encryptPassword, async (req, res)=>{
         managerId: req.body.managerId,
     });
 
-    if(seller){
-        return res.json(seller);
+    if (seller) {
+        return res.status(201).json(seller);
     }
 
-    return res.status(400).json({ error:"It was not possible to create a seller"});
+    return res.status(400).json({ error: "It was not possible to create a seller" });
 })
 
-router.post("/product", async (req, res)=>{
+router.post("/product", async (req, res) => {
     const { product } = await addProduct.execute({
         managerId: req.body.managerId,
         name: req.body.name,
         price: req.body.price,
     })
 
-    if(product){
+    if (product) {
         return res.json(product);
     }
 
-    return res.status(404).json({ error:"It was not possible to find the manager"});
+    return res.status(404).json({ error: "It was not possible to find the manager" });
 })
 
-router.post("/sale", async (req, res)=>{
+router.get("/product/:productId", async (req, res) => {
+    try {
+        const { product } = await getProduct.execute({
+            productId: req.params.productId
+        })
+
+
+        return res.json(HttpProductMapper.toHttp(product));
+    } catch {
+        return res.status(404).json({ error: "Product not found" });
+    }
+
+})
+
+router.post("/sale", async (req, res) => {
     const { sale } = await addSale.execute({
         managerId: req.body.managerId,
         sellerId: req.body.sellerId,
         productId: req.body.productId,
     })
 
-    if(sale){
+    if (sale) {
         return res.json(sale);
     }
 
-    return res.status(500).json({ error:"Something went wrong"});
+    return res.status(500).json({ error: "Something went wrong" });
 })
 
-router.get("/manager/:id", async (req, res)=>{
+router.get("/manager/:id", async (req, res) => {
     const { manager } = await getManager.execute({
         id: req.params.id,
     })
 
-    if(manager){
+    if (manager) {
         return res.json(HttpManagerMapper.toHttp(manager));
     }
 
-    return res.status(404).json({ error:"It was not possible to find the manager"});
+    return res.status(404).json({ error: "It was not possible to find the manager" });
 })
 
-router.get("/seller/:id", (req, res)=>{
+router.get("/seller/:id", (req, res) => {
     return res.json("Hello");
 })
 
 
-router.post("/:manager_id/product", (req, res)=>{
-    
+router.post("/:manager_id/product", (req, res) => {
+
 })
 
 

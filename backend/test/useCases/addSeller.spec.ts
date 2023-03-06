@@ -1,4 +1,4 @@
-import { ManagerNotFound } from "../../src/domain/errors/managerNotFount";
+import { ManagerNotFound } from "../../src/domain/errors/managerNotFound";
 import { AddSeller } from "../../src/domain/useCases/addSeller";
 import { IdGenerator } from "../../src/utils/idGenerator";
 import { makeManager } from "../factories/makeManager";

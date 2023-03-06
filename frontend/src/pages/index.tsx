@@ -1,9 +1,11 @@
+import { useApi } from '@/services/axios';
 import Head from 'next/head';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
+
 
 export default function Home() {
   const router = useRouter();
+  const api = useApi();
 
   function handleSubmit(e: React.FormEvent<HTMLElement>) {
     e.preventDefault();
@@ -50,7 +52,7 @@ export default function Home() {
             </div>
           </div>
 
-          <button type='submit' className="bg-blue-700 rounded-md w-full text-blue-100 text-lg font-bold hover:bg-blue-600 h-12">
+          <button type='submit' className="submit-btn">
             <p className="active:text-base">Login</p>
           </button>
 

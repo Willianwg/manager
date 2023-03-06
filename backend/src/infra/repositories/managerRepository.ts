@@ -26,7 +26,11 @@ export class PrismaManagerRepository implements ManagerRepository {
                 id
             },
             include:{
-                sellers: true,
+                sellers: {
+                    include:{
+                        sales:true
+                    }
+                },
                 products: true,
                 sales: true,
             }
@@ -36,6 +40,28 @@ export class PrismaManagerRepository implements ManagerRepository {
 
         return PrismaManagerMapper.toDomain(manager);
     }
+
+    async findByEmail(email: string): Promise<Manager | null> {
+        const manager = await this.prisma.manager.findFirst({
+            where:{
+                email
+            },
+            include:{
+                sellers: {
+                    include:{
+                        sales:true
+                    }
+                },
+                products: true,
+                sales: true,
+            }
+        })
+
+        if(!manager) return null;
+
+        return PrismaManagerMapper.toDomain(manager);
+    }
+    
     async update(manager: Manager): Promise<void> {
         throw new Error("Method not implemented.");
     }

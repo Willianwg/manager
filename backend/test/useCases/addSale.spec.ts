@@ -1,4 +1,4 @@
-import { ManagerNotFound } from "../../src/domain/errors/managerNotFount";
+import { ManagerNotFound } from "../../src/domain/errors/managerNotFound";
 import { ProductNotFound } from "../../src/domain/errors/productNotFound";
 import { SellerNotFound } from "../../src/domain/errors/sellerNotFound";
 import { AddSale } from "../../src/domain/useCases/addSale";

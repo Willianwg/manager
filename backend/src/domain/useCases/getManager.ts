@@ -1,5 +1,5 @@
 import { Manager } from "../entities/manager";
-import { ManagerNotFound } from "../errors/managerNotFount";
+import { ManagerNotFound } from "../errors/managerNotFound";
 import { ManagerRepository } from "../repositories/manager";
 
 type GetManagerRequest = {
