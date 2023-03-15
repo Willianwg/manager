@@ -1,9 +1,8 @@
 import Head from 'next/head';
-import { useState, useEffect } from 'react';
 import LineChart from '@/components/LineChart';
 import { useApi } from '@/services/axios';
 import { Seller, SellerProps } from '@/components/Seller';
-import { Manager, ManagerProps } from '@/components/Manager';
+import { ManagerProps } from '@/components/Manager';
 import { formatToCurrency } from '@/utils/formatToCurrency';
 import { GetServerSideProps } from 'next';
 import { RegisterSellerForm } from '@/components/registerSellerForm';
@@ -23,11 +22,7 @@ export type SaleProps = {
 }
 
 
-export default function Dashboard({ managerR, sellerss, resultss, valuee, salee }: { salee: SaleProps[], managerR: ManagerProps, sellerss: SellerProps[], resultss: number[], valuee: number }) {
-    const [value, setValue] = useState(valuee);
-    const [results, setResults] = useState<number[]>(resultss);
-    const [manager, setManager] = useState<ManagerProps | null>(managerR);
-    const [sellers, setSellers] = useState<SellerProps[]>(sellerss);
+export default function Dashboard({ manager, sellers, totalOfSales, sales }: { sales: SaleProps[], manager: ManagerProps, sellers: SellerProps[], totalOfSales: number }) {
 
     return (
         <div className="bg-blue-100 justify-center items-center flex flex-col gap-10 h-screen">
@@ -45,10 +40,10 @@ export default function Dashboard({ managerR, sellerss, resultss, valuee, salee 
                                 Total of sales:
                             </p>
                             <h1 className="font-bold text-2xl text-sky-900 mb-5">
-                                {formatToCurrency(value)}
+                                {formatToCurrency(totalOfSales)}
                             </h1>
                             <div className="">
-                                <LineChart values={results} sales={salee}/>
+                                <LineChart sales={sales}/>
                             </div>
                         </div>
                     </section>
@@ -62,7 +57,7 @@ export default function Dashboard({ managerR, sellerss, resultss, valuee, salee 
                                 Number of sales:
                             </p>
                             <h1 className="font-bold text-2xl text-sky-900 mb-5">
-                                {results.length}
+                                {sales.length}
                             </h1>
                             <div className="">
                                 <div className="flex flex-col w-80 items-center justify-between gap-4">
@@ -85,19 +80,17 @@ export default function Dashboard({ managerR, sellerss, resultss, valuee, salee 
 
 export const getServerSideProps: GetServerSideProps = async () => {
     const api = useApi();
-    const managerr: ManagerProps = await api.getManager();
+    const manager: ManagerProps = await api.getManager();
 
-    const sales = managerr.sales.map(sale => sale.value);
-    const sellers = managerr.sellers;
+    const salesValues = manager.sales.map(sale => sale.value);
+    const { sellers } = manager;
 
     return {
         props: {
-            managerR: managerr,
-            sellerss: sellers,
-            resultss: sales,
-            salee: managerr.sales,
-            valuee: sales.reduce((a, b) => a + b)
-
+            manager,
+            sellers,
+            sales: manager.sales,
+            totalOfSales: salesValues.reduce((a, b) => a + b)
         }
     }
 } 

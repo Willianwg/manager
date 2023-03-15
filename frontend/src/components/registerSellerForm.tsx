@@ -47,8 +47,8 @@ export function RegisterSellerForm() {
                 <h2 className="text-blue-600 font-serif text-xl">Managerr</h2>
                 <input type="text" className="border border-slate-400 rounded-md p-2" placeholder="Digit your name" onChange={e=> setName(e.target.value)}/>
                 <input type="text" className="border border-slate-400 rounded-md p-2" placeholder="Digit your email address" onChange={e=> setEmail(e.target.value)}/>
-                <input type="text" className="border border-slate-400 rounded-md p-2" placeholder="Create a password" onChange={e=> setPassword(e.target.value)}/>
-                <input type="text" className="border border-slate-400 rounded-md p-2" placeholder="Confirm the password" onChange={e=> setConfirmPassword(e.target.value)}/>
+                <input type="password" className="border border-slate-400 rounded-md p-2" placeholder="Create a password" onChange={e=> setPassword(e.target.value)}/>
+                <input type="password" className="border border-slate-400 rounded-md p-2" placeholder="Confirm the password" onChange={e=> setConfirmPassword(e.target.value)}/>
                <button className="submit-btn" type="submit"><p className="active:text-base">Register</p></button>
             </form>
         </section>

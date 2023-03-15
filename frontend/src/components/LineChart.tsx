@@ -1,5 +1,4 @@
 import { Line } from 'react-chartjs-2';
-import { useState, useEffect } from 'react';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -12,9 +11,9 @@ import {
     Filler
 } from 'chart.js'
 import { Chart } from 'react-chartjs-2';
-import { generateDates } from '@/utils/generateDates';
-import { fillChart } from '@/utils/fillChart';
+import { fillChartWithSalesValues } from '@/utils/fillChart';
 import { SaleProps } from '@/pages/Dashboard';
+import { generateChartDates } from '@/utils/generateChartDates';
 
 ChartJS.register(
     CategoryScale,
@@ -27,15 +26,15 @@ ChartJS.register(
     Filler
 )
 
-export default function LineChart({ values, sales }: { values: number[], sales:SaleProps[] }) {
-    const dates = generateDates()
+export default function LineChart({ sales }: { sales:SaleProps[] }) {
+    const datesLabels = generateChartDates();
 
     const data = {
-        labels: dates,
+        labels: datesLabels,
         datasets: [
             {
                 label: 'Sales',
-                data: fillChart(sales, dates),
+                data: fillChartWithSalesValues(sales, datesLabels),
                 backgroundColor: 'rgb(200,200,250)',
                 borderColor: 'rgb(20,100,200)',
                 borderWidth: 2,
