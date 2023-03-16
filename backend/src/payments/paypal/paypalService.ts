@@ -1,7 +1,7 @@
 import { IPayment } from "../ipayment";
 import axios from "axios";
 
-type PaypalOrderinfo = {
+export type PaypalOrderinfo = {
     intent: "CAPTURE" | "AUTHORIZE",
     purchase_units: {
         amount: {

@@ -9,3 +9,7 @@ section {
 .submit-btn {
     @apply bg-blue-700 rounded-md w-full text-blue-100 text-lg font-bold hover:bg-blue-600 h-12;
 }
+
+.submit-btn > p {
+    @apply active:text-base;
+}

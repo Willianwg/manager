@@ -16,6 +16,7 @@ import { HttpProductMapper } from "./mappers/httpProduct";
 import { PasswordEncoder } from "../utils/passwordEncoder";
 import { ManagerLogin } from "../domain/useCases/managerLogin";
 import { Paypal } from "../payments/paypal/paypalService";
+import { PaypalProductMapper } from "../payments/paypal/mappers/PaypalProductMapper";
 
 const idGenerator = new IdGenerator();
 const managerRepository = new PrismaManagerRepository();
@@ -154,6 +155,19 @@ router.post("/new-order", async (req, res)=>{
     const response = await payment.createOrder(req.body);
 
     res.json(response);
+})
+
+router.post("/:productId/new-order", async (req, res)=>{
+    const { productId } = req.params;
+    console.log("PID: ", productId);
+    const { product } = await getProduct.execute({ productId });
+    const orderInfo = PaypalProductMapper.toPaypal(product);
+    const payment = new Paypal();
+
+    const response = await payment.createOrder(orderInfo);
+
+    res.json(response);
+    return;
 })
 
 export const routes = router;

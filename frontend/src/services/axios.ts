@@ -43,5 +43,11 @@ export const useApi = ()=>({
         const response = await api.post("/seller", sellerInfo);
 
         return response.status;
+    },
+
+    async createOrder(productId: string){
+        const response = await api.post(`/${productId}/new-order`);
+
+        return response.data;
     }
 })

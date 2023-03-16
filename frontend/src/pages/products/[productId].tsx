@@ -11,13 +11,22 @@ export default function ProductDetails({ product, sellerId }: { product: Product
         return <Error statusCode={404} />
     }
 
+    const api = useApi();
+
+    async function createOrder(){
+        if(!product) return;
+        const link = await api.createOrder(product.id);
+
+        window.location.href = link;
+    }
+
     return (
         <div className="h-screen flex flex-col justify-center items-center bg-blue-100">
             <section>
                 <p>{product.name}</p>
                 <p>{formatToCurrency(product.price)}</p>
                 <p>{sellerId}</p>
-                <Paypal price={product.price} />
+                <button className="submit-btn" onClick={createOrder}><p>Buy</p></button>
             </section>
         </div>
     )
