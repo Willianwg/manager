@@ -1,7 +1,8 @@
+import { useApi } from "@/services/axios";
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 
-export function Paypal({ price }: { price: number }) {
-
+export function Paypal({ price, sellerId, productId }: { price: number, sellerId: string | null, productId: string }) {
+    const api = useApi();
     return (
         <>
             <PayPalScriptProvider options={{ "client-id": "AaHSVSNnZZK-S4EdPcb_qDubK4biLbVM_TvKuOWquDceFIPH81tKrzr1JxSML2YYqSyrIcRC2PxnH-wV" }}>
@@ -21,6 +22,13 @@ export function Paypal({ price }: { price: number }) {
 
                     onApprove={async (data) => {
                         alert(data.orderID);
+                        const response = await api.saveSale({
+                            managerId: "random",
+                            sellerId: sellerId ?? "randomtoo",
+                            productId
+                        })
+
+                        if(response) alert("SUCCESS");
                     }}
 
                     onCancel={async () => {

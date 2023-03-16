@@ -26,7 +26,8 @@ export default function ProductDetails({ product, sellerId }: { product: Product
                 <p>{product.name}</p>
                 <p>{formatToCurrency(product.price)}</p>
                 <p>{sellerId}</p>
-                <button className="submit-btn" onClick={createOrder}><p>Buy</p></button>
+                <Paypal price={product.price} sellerId={sellerId} productId={product.id}/>
+                <button className="submit-btn" ><p>Buy</p></button>
             </section>
         </div>
     )

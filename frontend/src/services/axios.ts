@@ -49,5 +49,10 @@ export const useApi = ()=>({
         const response = await api.post(`/${productId}/new-order`);
 
         return response.data;
+    },
+
+    async saveSale(saleInfo: { managerId: string, sellerId: string, productId: string}){
+
+        return saleInfo;
     }
 })
