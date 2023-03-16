@@ -1,16 +1,26 @@
+import { AuthContext } from '@/contexts/authContext';
 import { useApi } from '@/services/axios';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-
+import { useContext, useEffect } from 'react';
 
 export default function Home() {
   const router = useRouter();
   const api = useApi();
+  const context = useContext(AuthContext);
 
   function handleSubmit(e: React.FormEvent<HTMLElement>) {
     e.preventDefault();
-    router.push("/Dashboard")
+    context.login("random@random.com", "asdfsafasdfsad");
   }
+
+  useEffect(()=>{
+    if(context.manager){
+      alert(context.manager.name + " " + context.manager.id);
+      return;
+    }
+    alert("No Manager");
+  },[])
 
   return (
     <div className="h-screen bg-blue-100 flex">

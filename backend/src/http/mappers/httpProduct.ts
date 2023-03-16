@@ -7,6 +7,7 @@ export class HttpProductMapper {
             id: product.id,
             name: product.name,
             price: product.price,
+            managerId: product.managerId,
             createdAt: product.createdAt,
         }
     }

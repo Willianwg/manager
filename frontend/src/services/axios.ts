@@ -13,22 +13,22 @@ const api = axios.create({
     baseURL: backUrl,
 })
 
-export const useApi = ()=>({
-    async hello(product: ProductProps){
-        const response = await api.get("/sale/"+ product.id);
+export const useApi = () => ({
+    async hello(product: ProductProps) {
+        const response = await api.get("/sale/" + product.id);
 
         return response.data;
     },
 
-    async getManager(){
+    async getManager() {
         const managerId = "bc86084f-40e8-495c-8c07-e594c4fbd6f3";
-        const response = await api.get("/manager/"+managerId);
+        const response = await api.get("/manager/" + managerId);
 
         return response.data;
 
     },
 
-    async getProduct(productId: string){
+    async getProduct(productId: string) {
         try {
             const response = await api.get("/product/" + productId);
             return response.data;
@@ -36,23 +36,48 @@ export const useApi = ()=>({
             return null;
         }
 
-       
+
     },
 
-    async registerSeller(sellerInfo: RegisterSellerDto){
+    async registerSeller(sellerInfo: RegisterSellerDto) {
         const response = await api.post("/seller", sellerInfo);
 
         return response.status;
     },
 
-    async createOrder(productId: string){
+    async createOrder(productId: string) {
         const response = await api.post(`/${productId}/new-order`);
 
         return response.data;
     },
 
-    async saveSale(saleInfo: { managerId: string, sellerId: string, productId: string}){
+    async saveSale(saleInfo: { sellerId: string, productId: string }) {
+        const response = await api.post("/sale", {
+            managerId: "bc86084f-40e8-495c-8c07-e594c4fbd6f3",
+            sellerId: saleInfo.sellerId,
+            productId: saleInfo.productId,
+        })
+
+        console.log(response.data);
 
         return saleInfo;
+    },
+
+    async login(email: string, password: string) {
+
+        return {
+            name: "RandomName",
+            id: "askdjfsakdfjlasfkasdafas",
+            access_token: "HASDIUPFHSPADIFHPAS1234AD_FAFA"
+        }
+    },
+
+    async authenticate(access_token: string) {
+        return {
+            manager: {
+                name: "RandomName",
+                id: "askdjfsakdfjlasfkasdafas",
+            }
+        }
     }
 })
