@@ -171,4 +171,11 @@ router.post("/:productId/new-order", async (req, res)=>{
     return;
 })
 
+
+router.post("/web", async (req, res)=>{
+    console.log(req.body);
+    console.log(req.body.resource.purchase_units)
+    return "AAAA";
+})
+
 export const routes = router;
