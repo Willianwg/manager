@@ -1,4 +1,4 @@
-import { ErrorRequestHandler, Router } from "express";
+import { Router } from "express";
 import { PrismaManagerRepository } from "../infra/repositories/managerRepository";
 import { CreateManager } from "../domain/useCases/createManager";
 import { AddSeller } from "../domain/useCases/addSeller";
@@ -17,6 +17,7 @@ import { PasswordEncoder } from "../utils/passwordEncoder";
 import { ManagerLogin } from "../domain/useCases/managerLogin";
 import { Paypal } from "../payments/paypal/paypalService";
 import { PaypalProductMapper } from "../payments/paypal/mappers/PaypalProductMapper";
+import "dotenv/config";
 
 const idGenerator = new IdGenerator();
 const managerRepository = new PrismaManagerRepository();
