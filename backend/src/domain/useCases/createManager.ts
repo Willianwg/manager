@@ -16,6 +16,10 @@ export class CreateManager {
     constructor(private managerRepository: ManagerRepository, private idGenerator: IdGeneratorInterface){}
 
     async execute(request:CreateManagerRequest): Promise<CreateManagerResponse>{
+        const exists = await this.managerRepository.findByEmail(request.email)
+        if(exists){
+            throw new Error("Email not available")
+        }
         const id = this.idGenerator.generate();
         const manager = new Manager({
             name: request.name,

@@ -45,14 +45,27 @@ router.get("/sale/:product_id", (req, res) => {
 })
 
 router.post("/manager", encryptPassword, async (req, res) => {
-    const { manager } = await createManager.execute({
-        email: req.body.email,
-        name: req.body.name,
-        password: req.body.password,
-    });
+    if (!req.body.email || !req.body.name || !req.body.password ){
+        res.status(400).json({
+            message: "Bad request"
+        })
+        return
+    }
+    try {
+        const { manager } = await createManager.execute({
+            email: req.body.email,
+            name: req.body.name,
+            password: req.body.password,
+        });
 
-    if (manager) {
-        return res.json(manager);
+        if (manager) {
+            return res.status(201).end();
+        }
+    } catch(err: any){
+        res.json({
+            error: err.message
+        })
+        return
     }
 
     return res.status(400).json({ error: "It was not possible to create a manager" });
