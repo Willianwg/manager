@@ -143,6 +143,8 @@ router.post("/sale", async (req, res) => {
 })
 
 router.get("/manager/:id", async (req, res) => {
+    console.log(req.body)
+    try {
     const { manager } = await getManager.execute({
         id: req.params.id,
     })
@@ -150,8 +152,10 @@ router.get("/manager/:id", async (req, res) => {
     if (manager) {
         return res.json(HttpManagerMapper.toHttp(manager));
     }
+    }catch(err){
 
-    return res.status(404).json({ error: "It was not possible to find the manager" });
+        return res.status(404).json({ error: "It was not possible to find the manager" });
+    }
 })
 
 router.get("/seller/:id", (req, res) => {

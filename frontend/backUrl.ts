@@ -1,1 +1,1 @@
-export const backUrl = "https://3001-willianwg-manager-u1mylwunvg1.ws-us90.gitpod.io";
+export const backUrl = "http://localhost:3002";

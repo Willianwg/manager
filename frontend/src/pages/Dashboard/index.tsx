@@ -90,7 +90,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
             manager,
             sellers,
             sales: manager.sales,
-            totalOfSales: salesValues.reduce((a, b) => a + b)
+            totalOfSales: salesValues.reduce((a, b) => a + b, 0)
         }
     }
 } 

@@ -21,7 +21,7 @@ export const useApi = () => ({
     },
 
     async getManager() {
-        const managerId = "bc86084f-40e8-495c-8c07-e594c4fbd6f3";
+        const managerId = "35b83df2-3b25-41c6-9bce-dd50bf947b24";
         const response = await api.get("/manager/" + managerId);
 
         return response.data;
